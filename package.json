@@ -5,11 +5,24 @@
   "repository": "git@github.com:tylerlong/ringcentral-js-concise.git",
   "author": "Tyler Long <tyler4long@gmail.com>",
   "license": "MIT",
+  "main": "dist/ringcentral.js",
   "scripts": {
-    "upgrade": "yarn-upgrade-all"
+    "upgrade": "yarn-upgrade-all",
+    "build": "babel src --out-dir dist --presets=env --source-maps",
+    "build:watch": "yarn build --watch",
+    "test": "standard && jest",
+    "prepush": "yarn test"
   },
   "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.6.1",
+    "dotenv": "^4.0.0",
+    "husky": "^0.14.3",
+    "jest": "^22.0.4",
     "standard": "^10.0.3",
     "yarn-upgrade-all": "^0.2.1"
+  },
+  "dependencies": {
+    "axios": "^0.17.1"
   }
 }
