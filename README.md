@@ -17,9 +17,8 @@ import RingCentral from 'ringcentral-js-concise'
 
 const rc = new RingCentral('client-id', 'client-secret', RingCentral.SANDBOX_SERVER)
 rc.authorize({ username: 'username', extension: 'extension', password: 'password' })
-const r = rc.get('/restapi/v1.0/account/~/extension/~').then(r => {
-  console.log(r)
-})
+const r = await rc.get('/restapi/v1.0/account/~/extension/~')
+const extension = r.data
 ```
 
 
@@ -29,6 +28,11 @@ const r = rc.get('/restapi/v1.0/account/~/extension/~').then(r => {
 const token = rc.token() // get
 rc.token(token) // set
 ```
+
+
+### More examples
+
+Please refer to [test cases](/test).
 
 
 ## For repo maintainers
