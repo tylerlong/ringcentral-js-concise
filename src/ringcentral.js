@@ -14,7 +14,7 @@ class RingCentral {
   }
 
   token (_token) {
-    if (_token === undefined) { // get
+    if (arguments.length === 0) { // get
       return this._token
     }
     this._token = _token
@@ -29,11 +29,17 @@ class RingCentral {
     }
   }
 
-  async authorize ({ username, extension, password }) {
+  async authorize ({ username, extension, password, code, redirect_uri }) {
+    let data = null
+    if (code) {
+      data = querystring.stringify({ grant_type: 'authorization_code', code, redirect_uri })
+    } else {
+      data = querystring.stringify({ grant_type: 'password', username, extension, password })
+    }
     const r = await axios({
       method: 'post',
       url: path.join(this.server, '/restapi/oauth/token'),
-      data: querystring.stringify({ grant_type: 'password', username, extension, password }),
+      data,
       headers: this._basicAuthorizationHeader()
     })
     this.token(r.data)
@@ -50,6 +56,19 @@ class RingCentral {
       headers: this._basicAuthorizationHeader()
     })
     this.token(r.data)
+  }
+
+  async revoke () {
+    if (this._token === undefined) {
+      return
+    }
+    await axios({
+      method: 'post',
+      url: path.join(this.server, '/restapi/oauth/revoke'),
+      data: querystring.stringify({ token: this._token.access_token }),
+      headers: this._basicAuthorizationHeader()
+    })
+    this.token(undefined)
   }
 
   _basicAuthorizationHeader () {

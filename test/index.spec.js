@@ -29,4 +29,14 @@ describe('ringcentral', () => {
     await rc.refresh()
     expect(rc.token().access_token).not.toBe(accessToken)
   })
+  test('revoke', async () => {
+    const rc = new RingCentral(process.env.clientId, process.env.clientSecret, process.env.server)
+    await rc.authorize({
+      username: process.env.username,
+      extension: process.env.extension,
+      password: process.env.password
+    })
+    await rc.revoke()
+    expect(rc.token()).toBeUndefined()
+  })
 })
