@@ -2,6 +2,7 @@ const axios = require('axios')
 const { Base64 } = require('js-base64')
 const path = require('path')
 const querystring = require('querystring')
+const URI = require('urijs')
 
 class RingCentral {
   constructor (clientId, clientSecret, server) {
@@ -69,6 +70,16 @@ class RingCentral {
       headers: this._basicAuthorizationHeader()
     })
     this.token(undefined)
+  }
+
+  authorizeUri (redirectUri, state = '') {
+    return URI(path.join(this.server, '/restapi/oauth/authorize'))
+      .search({
+        response_type: 'code',
+        state: state,
+        redirect_uri: redirectUri,
+        client_id: this.clientId
+      }).toString()
   }
 
   _basicAuthorizationHeader () {

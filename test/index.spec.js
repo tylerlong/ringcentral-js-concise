@@ -39,4 +39,9 @@ describe('ringcentral', () => {
     await rc.revoke()
     expect(rc.token()).toBeUndefined()
   })
+  test('authorizeUri', () => {
+    const rc = new RingCentral(process.env.clientId, process.env.clientSecret, process.env.server)
+    const authorizeUri = rc.authorizeUri('http://baidu.com', 'state')
+    expect(authorizeUri.indexOf('redirect_uri=')).not.toBe(-1)
+  })
 })
