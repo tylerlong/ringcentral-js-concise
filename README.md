@@ -23,6 +23,14 @@ const r = rc.get('/restapi/v1.0/account/~/extension/~').then(r => {
 ```
 
 
+### Get & set token
+
+```js
+const token = rc.token() // get
+rc.token(token) // set
+```
+
+
 ## For repo maintainers
 
 ### Setup

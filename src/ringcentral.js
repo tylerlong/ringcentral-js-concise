@@ -8,6 +8,25 @@ class RingCentral {
     this.clientId = clientId
     this.clientSecret = clientSecret
     this.server = server
+    this._token = undefined
+    this._timeout = undefined
+    this.autoRefresh = true
+  }
+
+  token (_token) {
+    if (_token === undefined) { // get
+      return this._token
+    }
+    this._token = _token
+    if (this._timeout) {
+      clearTimeout(this._timeout)
+      this._timeout = null
+    }
+    if (this.autoRefresh && _token) {
+      this._timeout = setTimeout(() => {
+        this.refresh()
+      }, _token.expires_in - 120000)
+    }
   }
 
   async authorize ({ username, extension, password }) {
@@ -17,7 +36,7 @@ class RingCentral {
       data: querystring.stringify({ grant_type: 'password', username, extension, password }),
       headers: { Authorization: `Basic ${Base64.encode(`${this.clientId}:${this.clientSecret}`)}` }
     })
-    return r
+    this.token(r.data)
   }
 }
 

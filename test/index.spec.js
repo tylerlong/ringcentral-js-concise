@@ -7,11 +7,13 @@ dotenv.config()
 describe('ringcentral', () => {
   test('authorize', async () => {
     const rc = new RingCentral(process.env.clientId, process.env.clientSecret, process.env.server)
-    const r = await rc.authorize({
+    await rc.authorize({
       username: process.env.username,
       extension: process.env.extension,
       password: process.env.password
     })
-    console.log(r)
+    const token = rc.token()
+    expect(token).toBeDefined()
+    expect(token.access_token).toBeDefined()
   })
 })
