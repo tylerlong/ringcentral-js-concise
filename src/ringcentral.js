@@ -1,6 +1,5 @@
 const axios = require('axios')
 const { Base64 } = require('js-base64')
-const path = require('path')
 const querystring = require('querystring')
 const URI = require('urijs')
 
@@ -39,7 +38,7 @@ class RingCentral {
     }
     const r = await axios({
       method: 'post',
-      url: path.join(this.server, '/restapi/oauth/token'),
+      url: URI(this.server).path('/restapi/oauth/token').toString(),
       data,
       headers: this._basicAuthorizationHeader()
     })
@@ -52,7 +51,7 @@ class RingCentral {
     }
     const r = await axios({
       method: 'post',
-      url: path.join(this.server, '/restapi/oauth/token'),
+      url: URI(this.server).path('/restapi/oauth/token').toString(),
       data: querystring.stringify({ grant_type: 'refresh_token', refresh_token: this._token.refresh_token }),
       headers: this._basicAuthorizationHeader()
     })
@@ -65,7 +64,7 @@ class RingCentral {
     }
     await axios({
       method: 'post',
-      url: path.join(this.server, '/restapi/oauth/revoke'),
+      url: URI(this.server).path('/restapi/oauth/revoke').toString(),
       data: querystring.stringify({ token: this._token.access_token }),
       headers: this._basicAuthorizationHeader()
     })
@@ -73,7 +72,7 @@ class RingCentral {
   }
 
   authorizeUri (redirectUri, state = '') {
-    return URI(path.join(this.server, '/restapi/oauth/authorize'))
+    return URI(this.server).path('/restapi/oauth/authorize')
       .search({
         response_type: 'code',
         state: state,
