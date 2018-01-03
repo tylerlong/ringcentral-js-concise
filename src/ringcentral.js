@@ -34,9 +34,30 @@ class RingCentral {
       method: 'post',
       url: path.join(this.server, '/restapi/oauth/token'),
       data: querystring.stringify({ grant_type: 'password', username, extension, password }),
-      headers: { Authorization: `Basic ${Base64.encode(`${this.clientId}:${this.clientSecret}`)}` }
+      headers: this._basicAuthorizationHeader()
     })
     this.token(r.data)
+  }
+
+  async refresh () {
+    if (this._token === undefined) {
+      return
+    }
+    const r = await axios({
+      method: 'post',
+      url: path.join(this.server, '/restapi/oauth/token'),
+      data: querystring.stringify({ grant_type: 'refresh_token', refresh_token: this._token.refresh_token }),
+      headers: this._basicAuthorizationHeader()
+    })
+    this.token(r.data)
+  }
+
+  _basicAuthorizationHeader () {
+    return { Authorization: `Basic ${Base64.encode(`${this.clientId}:${this.clientSecret}`)}` }
+  }
+
+  _bearerAuthorizationHeader () {
+    return { Authorization: `Basic ${this._token.access_token}` }
   }
 }
 
