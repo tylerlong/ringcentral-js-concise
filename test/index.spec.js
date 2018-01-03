@@ -1,5 +1,5 @@
 /* eslint-env jest */
-const RingCentral = require('../dist/ringcentral')
+const RingCentral = require('../src/ringcentral')
 const dotenv = require('dotenv')
 
 dotenv.config()

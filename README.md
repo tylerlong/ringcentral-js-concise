@@ -35,16 +35,10 @@ rc.token(token) // set
 Please refer to [test cases](/test).
 
 
-## For repo maintainers
-
-### Setup
+## Test
 
 ```
-yarn install
-```
-
-### Build
-
-```
-yarn build
+mv .env.sample .env
+edit .env
+yarn test
 ```
