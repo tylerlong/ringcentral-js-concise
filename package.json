@@ -23,6 +23,7 @@
     "yarn-upgrade-all": "^0.2.1"
   },
   "dependencies": {
-    "axios": "^0.17.1"
+    "axios": "^0.17.1",
+    "js-base64": "^2.4.0"
   }
 }
