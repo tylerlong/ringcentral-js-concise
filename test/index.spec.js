@@ -44,4 +44,14 @@ describe('ringcentral', () => {
     const authorizeUri = rc.authorizeUri('http://baidu.com', 'state')
     expect(authorizeUri.indexOf('redirect_uri=')).not.toBe(-1)
   })
+  test('http get', async () => {
+    const rc = new RingCentral(process.env.clientId, process.env.clientSecret, process.env.server)
+    await rc.authorize({
+      username: process.env.username,
+      extension: process.env.extension,
+      password: process.env.password
+    })
+    const r = await rc.get('/restapi/v1.0/account/~/extension/~')
+    expect(r.data.extensionNumber).toBe('101')
+  })
 })

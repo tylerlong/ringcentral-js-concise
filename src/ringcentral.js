@@ -81,12 +81,50 @@ class RingCentral {
       }).toString()
   }
 
+  async get (endpoint, params) {
+    return axios({
+      method: 'get',
+      url: URI(this.server).path(endpoint).toString(),
+      headers: this._bearerAuthorizationHeader(),
+      params
+    })
+  }
+
+  async post (endpoint, data, params) {
+    return axios({
+      method: 'post',
+      url: URI(this.server).path(endpoint).toString(),
+      headers: this._bearerAuthorizationHeader(),
+      data,
+      params
+    })
+  }
+
+  async put (endpoint, data, params) {
+    return axios({
+      method: 'put',
+      url: URI(this.server).path(endpoint).toString(),
+      headers: this._bearerAuthorizationHeader(),
+      data,
+      params
+    })
+  }
+
+  async delete (endpoint, params) {
+    return axios({
+      method: 'delete',
+      url: URI(this.server).path(endpoint).toString(),
+      headers: this._bearerAuthorizationHeader(),
+      params
+    })
+  }
+
   _basicAuthorizationHeader () {
     return { Authorization: `Basic ${Base64.encode(`${this.clientId}:${this.clientSecret}`)}` }
   }
 
   _bearerAuthorizationHeader () {
-    return { Authorization: `Basic ${this._token.access_token}` }
+    return { Authorization: `Bearer ${this._token.access_token}` }
   }
 }
 
