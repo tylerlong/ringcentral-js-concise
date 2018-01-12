@@ -30,6 +30,15 @@ rc.token(token) // set
 ```
 
 
+### Auto refresh token
+
+Token expires. If you want the SDK to call `rc.refresh()` for you automatically:
+
+```js
+rc.autoRefresh = true
+```
+
+
 ### More examples
 
 Please refer to [test cases](/test).

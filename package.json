@@ -1,6 +1,6 @@
 {
   "name": "ringcentral-js-concise",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Concise JavaScript SDK for RingCentral.",
   "repository": "git@github.com:tylerlong/ringcentral-js-concise.git",
   "author": "Tyler Long <tyler4long@gmail.com>",
@@ -14,9 +14,9 @@
   "devDependencies": {
     "dotenv": "^4.0.0",
     "husky": "^0.14.3",
-    "jest": "^22.0.4",
+    "jest": "^22.0.6",
     "standard": "^10.0.3",
-    "yarn-upgrade-all": "^0.2.1"
+    "yarn-upgrade-all": "^0.3.0"
   },
   "dependencies": {
     "axios": "^0.17.1",

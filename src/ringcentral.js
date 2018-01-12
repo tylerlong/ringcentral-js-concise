@@ -10,7 +10,7 @@ class RingCentral {
     this.server = server
     this._token = undefined
     this._timeout = undefined
-    this.autoRefresh = true
+    this.autoRefresh = false
   }
 
   token (_token) {
