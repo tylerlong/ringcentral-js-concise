@@ -3,6 +3,8 @@ const { Base64 } = require('js-base64')
 const querystring = require('querystring')
 const URI = require('urijs')
 
+const PubNub = require('./pubnub')
+
 class RingCentral {
   constructor (clientId, clientSecret, server) {
     this.clientId = clientId
@@ -20,7 +22,7 @@ class RingCentral {
     this._token = _token
     if (this._timeout) {
       clearTimeout(this._timeout)
-      this._timeout = null
+      this._timeout = undefined
     }
     if (this.autoRefresh && _token) {
       this._timeout = setTimeout(() => {
@@ -30,7 +32,7 @@ class RingCentral {
   }
 
   async authorize ({ username, extension, password, code, redirect_uri }) {
-    let data = null
+    let data
     if (code) {
       data = querystring.stringify({ grant_type: 'authorization_code', code, redirect_uri })
     } else {
@@ -95,6 +97,10 @@ class RingCentral {
 
   delete (endpoint, params) {
     return this._request('delete', endpoint, params)
+  }
+
+  pubnub (events, callback) {
+    return new PubNub(this, events, callback)
   }
 
   _request (method, endpoint, params, data) {

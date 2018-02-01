@@ -1,6 +1,6 @@
 {
   "name": "ringcentral-js-concise",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Concise JavaScript SDK for RingCentral.",
   "repository": "git@github.com:tylerlong/ringcentral-js-concise.git",
   "author": "Tyler Long <tyler4long@gmail.com>",
@@ -21,6 +21,7 @@
   "dependencies": {
     "axios": "^0.17.1",
     "js-base64": "^2.4.0",
+    "pubnub": "^4.20.1",
     "urijs": "^1.19.0"
   }
 }
