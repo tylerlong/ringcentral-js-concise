@@ -33,7 +33,7 @@ class PubNub {
     if (_subscription) {
       this._timeout = setTimeout(() => {
         this.refresh()
-      }, _subscription.expiresIn - 120000)
+      }, (_subscription.expiresIn - 120) * 1000)
     }
   }
 

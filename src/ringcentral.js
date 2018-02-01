@@ -27,7 +27,7 @@ class RingCentral {
     if (this.autoRefresh && _token) {
       this._timeout = setTimeout(() => {
         this.refresh()
-      }, _token.expires_in - 120000)
+      }, (_token.expires_in - 120) * 1000)
     }
   }
 
