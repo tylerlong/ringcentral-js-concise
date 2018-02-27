@@ -1,5 +1,6 @@
 /* eslint-env jest */
 const RingCentral = require('../src/ringcentral')
+const PubNub = require('../src/pubnub')
 const dotenv = require('dotenv')
 
 dotenv.config()
@@ -20,7 +21,7 @@ describe('pubnub', () => {
       password: process.env.password
     })
     let count = 0
-    const pubnub = rc.pubnub(['/restapi/v1.0/account/~/extension/~/message-store'], message => {
+    const pubnub = new PubNub(rc, ['/restapi/v1.0/account/~/extension/~/message-store'], message => {
       count += 1
     })
     await pubnub.subscribe()

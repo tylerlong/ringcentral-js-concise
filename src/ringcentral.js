@@ -3,8 +3,6 @@ const { Base64 } = require('js-base64')
 const querystring = require('querystring')
 const URI = require('urijs')
 
-const PubNub = require('./pubnub')
-
 class RingCentral {
   constructor (clientId, clientSecret, server) {
     this.clientId = clientId
@@ -97,10 +95,6 @@ class RingCentral {
 
   delete (endpoint, params) {
     return this._request('delete', endpoint, params)
-  }
-
-  pubnub (events, callback) {
-    return new PubNub(this, events, callback)
   }
 
   _request (method, endpoint, params, data) {
