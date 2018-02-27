@@ -81,28 +81,28 @@ class RingCentral {
       }).toString()
   }
 
-  get (endpoint, params) {
-    return this._request('get', endpoint, params)
+  get (endpoint, params, headers = {}) {
+    return this._request('get', endpoint, params, undefined, headers)
   }
 
-  post (endpoint, data, params) {
-    return this._request('post', endpoint, params, data)
+  post (endpoint, data, params, headers = {}) {
+    return this._request('post', endpoint, params, data, headers)
   }
 
-  put (endpoint, data, params) {
-    return this._request('put', endpoint, params, data)
+  put (endpoint, data, params, headers = {}) {
+    return this._request('put', endpoint, params, data, headers)
   }
 
-  delete (endpoint, params) {
-    return this._request('delete', endpoint, params)
+  delete (endpoint, params, headers = {}) {
+    return this._request('delete', endpoint, params, undefined, headers)
   }
 
-  _request (method, endpoint, params, data) {
+  _request (method, endpoint, params, data, headers = {}) {
     const userAgentHeader = 'tylerlong/ringcentral-js-concise'
     return axios({
       method,
       url: URI(this.server).path(endpoint).toString(),
-      headers: Object.assign({}, this._bearerAuthorizationHeader(), {
+      headers: Object.assign(headers, this._bearerAuthorizationHeader(), {
         'User-Agent': userAgentHeader,
         'RC-User-Agent': userAgentHeader
       }),
