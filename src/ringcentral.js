@@ -29,10 +29,10 @@ class RingCentral {
     }
   }
 
-  async authorize ({ username, extension, password, code, redirect_uri }) {
+  async authorize ({ username, extension, password, code, redirectUri }) {
     let data
     if (code) {
-      data = querystring.stringify({ grant_type: 'authorization_code', code, redirect_uri })
+      data = querystring.stringify({ grant_type: 'authorization_code', code, redirect_uri: redirectUri })
     } else {
       data = querystring.stringify({ grant_type: 'password', username, extension, password })
     }
