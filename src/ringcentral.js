@@ -93,6 +93,10 @@ class RingCentral {
     return this._request('put', endpoint, params, data, headers)
   }
 
+  patch (endpoint, data, params, headers = {}) {
+    return this._request('patch', endpoint, params, data, headers)
+  }
+
   delete (endpoint, params, headers = {}) {
     return this._request('delete', endpoint, params, undefined, headers)
   }

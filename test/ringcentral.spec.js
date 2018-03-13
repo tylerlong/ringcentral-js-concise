@@ -62,6 +62,8 @@ describe('ringcentral', () => {
     r = await rc.put(messageUrl, { readStatus: 'Read' })
     expect(r.data.readStatus).toBe('Read')
 
+    // todo: patch
+
     // delete
     await rc.delete(messageUrl)
     r = await rc.get(messageUrl)
