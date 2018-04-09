@@ -35,4 +35,24 @@ describe('pubnub', () => {
     pubnub.revoke()
     expect(count >= 1).toBe(true)
   })
+
+  test('Glip post notification', async () => {
+    await rc.authorize({
+      username: process.env.username,
+      extension: process.env.extension,
+      password: process.env.password
+    })
+    let count = 0
+    const pubnub = new PubNub(rc, ['/restapi/v1.0/glip/posts'], message => {
+      count += 1
+    })
+    await pubnub.subscribe()
+    await timeout(5000)
+    await rc.post(`/restapi/v1.0/glip/groups/${process.env.glipGroupId}/posts`, {
+      text: 'Hello world'
+    })
+    await timeout(15000)
+    pubnub.revoke()
+    expect(count >= 1).toBe(true)
+  })
 })

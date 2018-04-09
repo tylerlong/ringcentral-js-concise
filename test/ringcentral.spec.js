@@ -45,7 +45,7 @@ describe('ringcentral', () => {
 
     // get
     let r = await rc.get('/restapi/v1.0/account/~/extension/~')
-    expect(r.data.extensionNumber).toBe('101')
+    expect(parseInt(r.data.extensionNumber) > 100).toBe(true)
 
     // post
     r = await rc.post('/restapi/v1.0/account/~/extension/~/sms', {

@@ -1,2 +1,5 @@
 node_modules/
 .env
+.env.sandbox
+.env.prod
+yarn-error.log
