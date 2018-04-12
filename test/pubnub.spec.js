@@ -51,7 +51,7 @@ describe('pubnub', () => {
     await rc.post(`/restapi/v1.0/glip/groups/${process.env.glipGroupId}/posts`, {
       text: 'Hello world'
     })
-    await timeout(15000)
+    await timeout(30000)
     pubnub.revoke()
     expect(count >= 1).toBe(true)
   })
