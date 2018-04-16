@@ -19,12 +19,13 @@ describe('webhook', () => {
       extension: process.env.extension,
       password: process.env.password
     })
+    let res
     try {
-      const res = await rc.post('/restapi/v1.0/subscription', {
+      res = await rc.post('/restapi/v1.0/subscription', {
         eventFilters: [ '/restapi/v1.0/glip/posts' ],
         deliveryMode: {
           transportType: 'WebHook',
-          address: 'https://9047074b.ngrok.io/webhook'
+          address: process.env.webhookUri
         }
       })
       console.log(res)
@@ -39,5 +40,7 @@ describe('webhook', () => {
       text: 'Hello world'
     })
     await timeout(200000)
+    res = await rc.delete(`/restapi/v1.0/subscription/${res.data.id}`)
+    console.log(res)
   })
 })
