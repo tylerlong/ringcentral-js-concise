@@ -19,20 +19,18 @@ describe('webhook', () => {
       extension: process.env.extension,
       password: process.env.password
     })
-    let res
+    let subId
     try {
-      res = await rc.post('/restapi/v1.0/subscription', {
+      const res = await rc.post('/restapi/v1.0/subscription', {
         eventFilters: [ '/restapi/v1.0/glip/posts' ],
         deliveryMode: {
           transportType: 'WebHook',
           address: process.env.webhookUri
         }
       })
-      console.log(res)
+      subId = res.data.id
     } catch (e) {
-      console.log(e)
-      console.log(e.response)
-      console.log(e.response.data)
+      console.error(e.response.data)
       return
     }
     await timeout(5000)
@@ -40,7 +38,6 @@ describe('webhook', () => {
       text: 'Hello world'
     })
     await timeout(200000)
-    res = await rc.delete(`/restapi/v1.0/subscription/${res.data.id}`)
-    console.log(res)
+    await rc.delete(`/restapi/v1.0/subscription/${subId}`)
   })
 })
