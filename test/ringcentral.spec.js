@@ -6,14 +6,14 @@ dotenv.config()
 
 jest.setTimeout(64000)
 
-const rc = new RingCentral(process.env.clientId, process.env.clientSecret, process.env.server)
+const rc = new RingCentral(process.env.RINGCENTRAL_CLIENT_ID, process.env.RINGCENTRAL_CLIENT_SECRET, process.env.RINGCENTRAL_SERVER_URL)
 
 describe('ringcentral', () => {
   test('authorize / refresh / revoke', async () => {
     await rc.authorize({
-      username: process.env.username,
-      extension: process.env.extension,
-      password: process.env.password
+      username: process.env.RINGCENTRAL_USERNAME,
+      extension: process.env.RINGCENTRAL_EXTENSION,
+      password: process.env.RINGCENTRAL_PASSWORD
     })
     const token = rc.token()
     expect(token).toBeDefined()
@@ -38,9 +38,9 @@ describe('ringcentral', () => {
   })
   test('http methods', async () => {
     await rc.authorize({
-      username: process.env.username,
-      extension: process.env.extension,
-      password: process.env.password
+      username: process.env.RINGCENTRAL_USERNAME,
+      extension: process.env.RINGCENTRAL_EXTENSION,
+      password: process.env.RINGCENTRAL_PASSWORD
     })
 
     // get
@@ -49,8 +49,8 @@ describe('ringcentral', () => {
 
     // post
     r = await rc.post('/restapi/v1.0/account/~/extension/~/sms', {
-      to: [{ phoneNumber: process.env.receiver }],
-      from: { phoneNumber: process.env.username },
+      to: [{ phoneNumber: process.env.RINGCENTRAL_RECEIVER }],
+      from: { phoneNumber: process.env.RINGCENTRAL_USERNAME },
       text: 'Hello world'
     })
     expect(r.data.type).toBe('SMS')

@@ -6,7 +6,7 @@ dotenv.config()
 
 jest.setTimeout(256000)
 
-const rc = new RingCentral(process.env.clientId, process.env.clientSecret, process.env.server)
+const rc = new RingCentral(process.env.RINGCENTRAL_CLIENT_ID, process.env.RINGCENTRAL_CLIENT_SECRET, process.env.RINGCENTRAL_SERVER_URL)
 
 function timeout (ms) {
   return new Promise(resolve => setTimeout(resolve, ms))
@@ -15,9 +15,9 @@ function timeout (ms) {
 describe('webhook', () => {
   test('Glip post notification', async () => {
     await rc.authorize({
-      username: process.env.username,
-      extension: process.env.extension,
-      password: process.env.password
+      username: process.env.RINGCENTRAL_USERNAME,
+      extension: process.env.RINGCENTRAL_EXTENSION,
+      password: process.env.RINGCENTRAL_PASSWORD
     })
     let subId
     try {
@@ -25,7 +25,7 @@ describe('webhook', () => {
         eventFilters: [ '/restapi/v1.0/glip/posts' ],
         deliveryMode: {
           transportType: 'WebHook',
-          address: process.env.webhookUri
+          address: process.env.RINGCENTRAL_WEBHOOK_URI
         }
       })
       subId = res.data.id
@@ -34,7 +34,7 @@ describe('webhook', () => {
       return
     }
     await timeout(5000)
-    await rc.post(`/restapi/v1.0/glip/groups/${process.env.glipGroupId}/posts`, {
+    await rc.post(`/restapi/v1.0/glip/groups/${process.env.RINGCENTRAL_GLIP_GROUP_ID}/posts`, {
       text: 'Hello world'
     })
     await timeout(200000)
