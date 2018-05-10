@@ -22,7 +22,11 @@ describe('webhook', () => {
     let subId
     try {
       const res = await rc.post('/restapi/v1.0/subscription', {
-        eventFilters: [ '/restapi/v1.0/glip/posts' ],
+        eventFilters: [
+          '/restapi/v1.0/glip/posts',
+          '/restapi/v1.0/account/~/extension/~/message-store'
+          // '/restapi/v1.0/account/~/extension/~/message-store/instant?type=SMS'
+        ],
         deliveryMode: {
           transportType: 'WebHook',
           address: process.env.RINGCENTRAL_WEBHOOK_URI
