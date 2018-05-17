@@ -13,7 +13,10 @@ function timeout (ms) {
 }
 
 describe('webhook', () => {
-  test('Glip post notification', async () => {
+  test('notifications', async () => {
+    if (process.env.RINGCENTRAL_WEBHOOK_URI === undefined) {
+      return
+    }
     await rc.authorize({
       username: process.env.RINGCENTRAL_USERNAME,
       extension: process.env.RINGCENTRAL_EXTENSION,
