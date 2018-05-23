@@ -14,6 +14,11 @@ https://stackoverflow.com/questions/50291205
 
 const RingCentral = require('../src/ringcentral')
 const dotenv = require('dotenv')
+const FormData = require('form-data')
+const fs = require('fs')
+const path = require('path')
+const concat = require('concat-stream')
+const delay = require('timeout-as-promise')
 
 dotenv.config()
 
@@ -31,11 +36,32 @@ describe('ringcentral', () => {
 
     let r = await rc.get('/restapi/v1.0/account/~/extension')
     const otherExtensionId = r.data.records.filter(r => r.extensionNumber === '102')[0].id
-    console.log(otherExtensionId)
 
-    // r = await rc.get('/restapi/v1.0/account/~/extension/~')
-    // console.log(r.data)
+    const formData = new FormData()
+    formData.append('json', JSON.stringify({ to: [{ phoneNumber: process.env.RINGCENTRAL_RECEIVER }] }), 'test.json')
+    formData.append('attachment', fs.createReadStream(path.join(__dirname, 'test.png')), 'test.png')
+    formData.pipe(concat({ encoding: 'buffer' }, async data => {
+      try {
+        const r = await rc.post(`/restapi/v1.0/account/~/extension/${otherExtensionId}/fax`, data, {
+          headers: formData.getHeaders()
+        })
+        console.log(r.data)
+      } catch (e) {
+        console.log(e.response.data)
+      }
+    }))
 
+    await delay(10000)
     await rc.revoke()
   })
 })
+
+/*
+{ errorCode: 'CMN-408',
+  message: 'In order to call this API endpoint, user needs to have [OutboundFaxes] permission for requested resource.',
+  errors:
+    [ { errorCode: 'CMN-408',
+        message: 'In order to call this API endpoint, user needs to have [OutboundFaxes] permission for requested resource.',
+        permissionName: 'OutboundFaxes' } ],
+  permissionName: 'OutboundFaxes' }
+*/
