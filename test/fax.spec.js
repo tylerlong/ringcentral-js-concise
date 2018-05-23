@@ -21,12 +21,12 @@ describe('ringcentral', () => {
       password: process.env.RINGCENTRAL_PASSWORD
     })
 
-    const form = new FormData()
-    form.append('json', JSON.stringify({ to: [{ phoneNumber: process.env.RINGCENTRAL_RECEIVER }] }), 'test.json')
-    form.append('attachment', fs.createReadStream(path.join(__dirname, 'test.png')), 'test.png')
-    form.pipe(concat({ encoding: 'buffer' }, async data => {
+    const formData = new FormData()
+    formData.append('json', JSON.stringify({ to: [{ phoneNumber: process.env.RINGCENTRAL_RECEIVER }] }), 'test.json')
+    formData.append('attachment', fs.createReadStream(path.join(__dirname, 'test.png')), 'test.png')
+    formData.pipe(concat({ encoding: 'buffer' }, async data => {
       const r = await rc.post('/restapi/v1.0/account/~/extension/~/fax', data, {
-        headers: form.getHeaders()
+        headers: formData.getHeaders()
       })
       console.log(r.data)
     }))
