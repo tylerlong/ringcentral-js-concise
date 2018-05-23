@@ -16,10 +16,13 @@
     "husky": "^0.14.3",
     "jest": "^22.4.2",
     "standard": "^11.0.0",
+    "timeout-as-promise": "^1.0.0",
     "yarn-upgrade-all": "^0.3.0"
   },
   "dependencies": {
     "axios": "^0.18.0",
+    "concat-stream": "^1.6.2",
+    "form-data": "^2.3.2",
     "js-base64": "^2.4.3",
     "pubnub": "^4.20.1",
     "urijs": "^1.19.1"
