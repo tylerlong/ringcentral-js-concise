@@ -9,7 +9,7 @@ jest.setTimeout(64000)
 const rc = new RingCentral(process.env.RINGCENTRAL_CLIENT_ID, process.env.RINGCENTRAL_CLIENT_SECRET, process.env.RINGCENTRAL_SERVER_URL)
 
 describe('ringcentral', () => {
-  test('authorize / refresh / revoke', async () => {
+  test('voicemail', async () => {
     await rc.authorize({
       username: process.env.RINGCENTRAL_USERNAME,
       extension: process.env.RINGCENTRAL_EXTENSION,
