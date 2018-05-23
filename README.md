@@ -38,6 +38,20 @@ Token expires. If you want the SDK to call `rc.refresh()` for you automatically:
 rc.autoRefresh = true
 ```
 
+### HTTP Methods: get, post, put, delete
+
+[HTTP Methods](/test/ringcentral.spec.js)
+
+
+### Send SMS
+
+[Send SMS](/test/sms.spec.js)
+
+
+### Send Fax
+
+[Send Fax](/test/fax.spec.js)
+
 
 ### More examples
 
