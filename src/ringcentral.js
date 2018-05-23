@@ -81,37 +81,54 @@ class RingCentral {
       }).toString()
   }
 
-  get (endpoint, params, headers = {}) {
-    return this._request('get', endpoint, params, undefined, headers)
+  request (config) {
+    config.url = URI(this.server).path(config.url).toString()
+    config.headers = this._patchHeaders(config.headers)
+    return axios.request(config)
   }
 
-  post (endpoint, data, params, headers = {}) {
-    return this._request('post', endpoint, params, data, headers)
+  get (url, config = {}) {
+    config.method = 'get'
+    config.url = url
+    return this.request(config)
   }
 
-  put (endpoint, data, params, headers = {}) {
-    return this._request('put', endpoint, params, data, headers)
+  delete (url, config = {}) {
+    config.method = 'delete'
+    config.url = url
+    return this.request(config)
   }
 
-  patch (endpoint, data, params, headers = {}) {
-    return this._request('patch', endpoint, params, data, headers)
+  post (url, data = undefined, config = {}) {
+    config.method = 'post'
+    config.url = url
+    config.data = data
+    return this.request(config)
   }
 
-  delete (endpoint, params, headers = {}) {
-    return this._request('delete', endpoint, params, undefined, headers)
+  put (url, data = undefined, config = {}) {
+    config.method = 'put'
+    config.url = url
+    config.data = data
+    return this.request(config)
   }
 
-  _request (method, endpoint, params, data, headers = {}) {
+  patch (url, data = undefined, config = {}) {
+    config.method = 'patch'
+    config.url = url
+    config.data = data
+    return this.request(config)
+  }
+
+  _patchHeaders (headers) {
+    if (!headers) {
+      headers = {}
+    }
     const userAgentHeader = 'tylerlong/ringcentral-js-concise'
-    return axios({
-      method,
-      url: URI(this.server).path(endpoint).toString(),
-      headers: Object.assign(headers, this._bearerAuthorizationHeader(), {
-        'User-Agent': userAgentHeader,
-        'RC-User-Agent': userAgentHeader
-      }),
-      params,
-      data
+    return Object.assign(headers, this._bearerAuthorizationHeader(), {
+      'User-Agent': userAgentHeader,
+      'X-User-Agent': userAgentHeader,
+      'RC-User-Agent': userAgentHeader
     })
   }
 
