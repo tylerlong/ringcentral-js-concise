@@ -8,11 +8,11 @@
   "main": "src/ringcentral.js",
   "scripts": {
     "upgrade": "yarn-upgrade-all",
-    "test": "standard && jest",
-    "prepush": "yarn test"
+    "test": "standard && jest"
   },
   "devDependencies": {
     "dotenv": "^5.0.1",
+    "eslint-plugin-html": "^4.0.3",
     "husky": "^0.14.3",
     "jest": "^22.4.2",
     "standard": "^11.0.0",
