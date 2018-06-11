@@ -45,9 +45,10 @@ describe('ringcentral', () => {
         const r = await rc.post(`/restapi/v1.0/account/~/extension/${otherExtensionId}/fax`, data, {
           headers: formData.getHeaders()
         })
-        console.log(r.data)
+        expect(r.status).toBe(200)
       } catch (e) {
-        console.log(e.response.data)
+        expect(e.response.status).toBe(403)
+        expect(e.response.data.errorCode).toBe('CMN-408')
       }
     }))
 

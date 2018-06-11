@@ -17,19 +17,17 @@ describe('ringcentral', () => {
     })
 
     // fetch call log
-    let r = await rc.get('/restapi/v1.0/account/~/extension/~/call-log', { params: {
+    await rc.get('/restapi/v1.0/account/~/extension/~/call-log', { params: {
       type: 'Voice',
       direction: 'Inbound',
       view: 'Detailed'
     }})
-    console.log(JSON.stringify(r.data.records[0], null, 2))
 
     // fetch voice mail
-    r = await rc.get('/restapi/v1.0/account/~/extension/~/message-store', { params: {
+    await rc.get('/restapi/v1.0/account/~/extension/~/message-store', { params: {
       messageType: 'VoiceMail',
       dateFrom: '2017-05-16T05:47:00.000Z'
     }})
-    console.log(JSON.stringify(r.data.records[0], null, 2))
 
     // note: for voicemail,  callLog.message.id === message-store.attachments[0].id
 

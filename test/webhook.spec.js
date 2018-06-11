@@ -14,7 +14,7 @@ function timeout (ms) {
 
 describe('webhook', () => {
   test('notifications', async () => {
-    if (process.env.RINGCENTRAL_WEBHOOK_URI === undefined) {
+    if (process.env.RINGCENTRAL_WEBHOOK_URI === undefined || process.env.RINGCENTRAL_WEBHOOK_URI === '') {
       return
     }
     await rc.authorize({

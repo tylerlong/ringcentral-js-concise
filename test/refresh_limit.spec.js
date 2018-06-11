@@ -1,7 +1,6 @@
 /* eslint-env jest */
 const RingCentral = require('../src/ringcentral')
 const dotenv = require('dotenv')
-const delay = require('timeout-as-promise')
 
 dotenv.config()
 

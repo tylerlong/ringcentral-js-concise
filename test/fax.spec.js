@@ -28,7 +28,7 @@ describe('ringcentral', () => {
       const r = await rc.post('/restapi/v1.0/account/~/extension/~/fax', data, {
         headers: formData.getHeaders()
       })
-      console.log(r.data)
+      expect(r.status).toBe(200)
     }))
 
     await delay(10000)
