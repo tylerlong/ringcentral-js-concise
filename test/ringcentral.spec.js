@@ -27,8 +27,25 @@ describe('ringcentral', () => {
     expect(rc.token()).toBeUndefined()
   })
   test('authorizeUri', () => {
-    const authorizeUri = rc.authorizeUri('http://example.com', 'state')
+    let authorizeUri = rc.authorizeUri('http://example.com/oauth.html', {
+      responseType: 'code',
+      state: 'auth-code-flow',
+      brandId: '',
+      display: '',
+      prompt: ''
+    })
     expect(authorizeUri.indexOf('redirect_uri=')).not.toBe(-1)
+    expect(authorizeUri.indexOf('state=auth-code-flow')).not.toBe(-1)
+
+    authorizeUri = rc.authorizeUri('http://example.com/oauth.html', {
+      responseType: 'token',
+      state: 'implicit-flow',
+      brandId: '',
+      display: '',
+      prompt: ''
+    })
+    expect(authorizeUri.indexOf('redirect_uri=')).not.toBe(-1)
+    expect(authorizeUri.indexOf('state=implicit-flow')).not.toBe(-1)
   })
   test('constants', () => {
     expect(RingCentral.SANDBOX_SERVER).toBeDefined()

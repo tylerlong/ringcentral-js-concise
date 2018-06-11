@@ -71,13 +71,16 @@ class RingCentral {
     this.token(undefined)
   }
 
-  authorizeUri (redirectUri, state = '') {
+  authorizeUri (redirectUri, options = { responseType: 'code', state: '', brandId: '', display: '', prompt: '' }) {
     return URI(this.server).path('/restapi/oauth/authorize')
       .search({
-        response_type: 'code',
-        state: state,
         redirect_uri: redirectUri,
-        client_id: this.clientId
+        client_id: this.clientId,
+        response_type: options.responseType || 'code',
+        state: options.state || '',
+        brand_id: options.brandId || '',
+        display: options.display || '',
+        prompt: options.prompt || ''
       }).toString()
   }
 
