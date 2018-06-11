@@ -35,6 +35,17 @@ describe('ringcentral', () => {
       prompt: ''
     })
     expect(authorizeUri.indexOf('redirect_uri=')).not.toBe(-1)
+    expect(authorizeUri.indexOf('response_type=code')).not.toBe(-1)
+    expect(authorizeUri.indexOf('state=auth-code-flow')).not.toBe(-1)
+
+    authorizeUri = rc.authorizeUri('http://example.com/oauth.html', {
+      state: 'auth-code-flow',
+      brandId: '',
+      display: '',
+      prompt: ''
+    })
+    expect(authorizeUri.indexOf('redirect_uri=')).not.toBe(-1)
+    expect(authorizeUri.indexOf('response_type=code')).not.toBe(-1)
     expect(authorizeUri.indexOf('state=auth-code-flow')).not.toBe(-1)
 
     authorizeUri = rc.authorizeUri('http://example.com/oauth.html', {
@@ -45,6 +56,7 @@ describe('ringcentral', () => {
       prompt: ''
     })
     expect(authorizeUri.indexOf('redirect_uri=')).not.toBe(-1)
+    expect(authorizeUri.indexOf('response_type=token')).not.toBe(-1)
     expect(authorizeUri.indexOf('state=implicit-flow')).not.toBe(-1)
   })
   test('constants', () => {
