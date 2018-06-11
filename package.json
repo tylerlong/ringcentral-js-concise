@@ -1,6 +1,6 @@
 {
   "name": "ringcentral-js-concise",
-  "version": "0.4.0",
+  "version": "0.4.2",
   "description": "Concise JavaScript SDK for RingCentral.",
   "repository": "git@github.com:tylerlong/ringcentral-js-concise.git",
   "author": "Tyler Long <tyler4long@gmail.com>",
@@ -14,16 +14,16 @@
     "axios": "^0.18.0",
     "concat-stream": "^1.6.2",
     "form-data": "^2.3.2",
-    "js-base64": "^2.4.3",
-    "pubnub": "^4.20.1",
+    "js-base64": "^2.4.5",
+    "pubnub": "^4.21.0",
     "urijs": "^1.19.1"
   },
   "devDependencies": {
-    "dotenv": "^5.0.1",
+    "dotenv": "^6.0.0",
     "eslint-plugin-html": "^4.0.3",
     "husky": "^0.14.3",
-    "jest": "^22.4.2",
-    "standard": "^11.0.0",
+    "jest": "^23.1.0",
+    "standard": "^11.0.1",
     "timeout-as-promise": "^1.0.0",
     "yarn-upgrade-all": "^0.3.0"
   }
