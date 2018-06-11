@@ -129,7 +129,6 @@ class RingCentral {
     }
     const userAgentHeader = 'tylerlong/ringcentral-js-concise'
     return Object.assign(headers, this._bearerAuthorizationHeader(), {
-      'User-Agent': userAgentHeader,
       'X-User-Agent': userAgentHeader,
       'RC-User-Agent': userAgentHeader
     })
