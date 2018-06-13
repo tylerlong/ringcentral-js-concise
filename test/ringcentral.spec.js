@@ -42,11 +42,12 @@ describe('ringcentral', () => {
       state: 'auth-code-flow',
       brandId: '',
       display: '',
-      prompt: ''
+      prompt: 'none'
     })
     expect(authorizeUri.indexOf('redirect_uri=')).not.toBe(-1)
     expect(authorizeUri.indexOf('response_type=code')).not.toBe(-1)
     expect(authorizeUri.indexOf('state=auth-code-flow')).not.toBe(-1)
+    expect(authorizeUri.indexOf('prompt=none')).not.toBe(-1)
 
     authorizeUri = rc.authorizeUri('http://example.com/oauth.html', {
       responseType: 'token',
