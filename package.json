@@ -13,13 +13,13 @@
   "dependencies": {
     "axios": "^0.18.0",
     "js-base64": "^2.4.5",
-    "pubnub": "^4.21.0",
+    "pubnub": "^4.21.2",
     "urijs": "^1.19.1"
   },
   "devDependencies": {
     "concat-stream": "^1.6.2",
     "dotenv": "^6.0.0",
-    "eslint-plugin-html": "^4.0.3",
+    "eslint-plugin-html": "^4.0.5",
     "form-data": "^2.3.2",
     "husky": "^0.14.3",
     "jest": "^23.1.0",
