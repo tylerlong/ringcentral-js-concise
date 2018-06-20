@@ -1,13 +1,27 @@
 # ringcentral-js-concise
 
+[![npm version](https://badge.fury.io/js/ringcentral-js-concise.svg)](https://badge.fury.io/js/ringcentral-js-concise)
+
 Concise JavaScript SDK for RingCentral.
 
 
 ## Installation
 
+### Node.js
+
 ```
 yarn add ringcentral-js-concise
 ```
+
+
+### Or CDN
+
+```html
+<script src="https://unpkg.com/axios@0.18.0/dist/axios.min.js"></script>
+<script src="https://unpkg.com/ringcentral-js-concise@0.4.6/dist/ringcentral.js"></script>
+```
+
+`ringcentral-js-concise` depends on `axios`. With the code above you will have a global variable named `RingCentral`.
 
 
 ## Usage
