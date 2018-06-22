@@ -14,7 +14,7 @@ yarn add ringcentral-js-concise
 ```
 
 
-### Or CDN
+### or CDN
 
 ```html
 <script src="https://unpkg.com/axios@0.18.0/dist/axios.min.js"></script>
@@ -65,6 +65,11 @@ rc.autoRefresh = true
 ### Send Fax
 
 [Send Fax](/test/fax.spec.js)
+
+
+### Batch Get
+
+[Batch Get](/test/batch_get.spec.js)
 
 
 ### More examples

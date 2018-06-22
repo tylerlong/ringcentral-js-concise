@@ -26,6 +26,8 @@
     "form-data": "^2.3.2",
     "husky": "^0.14.3",
     "jest": "^23.1.0",
+    "multipart-mixed-parser": "^0.1.2",
+    "ramda": "^0.25.0",
     "standard": "^11.0.1",
     "timeout-as-promise": "^1.0.0",
     "webpack": "^4.12.0",
