@@ -17,7 +17,8 @@ describe('ringcentral', () => {
     })
 
     let r = await rc.get('/restapi/v1.0/account/~/extension/~/call-log')
-    console.log(JSON.stringify(r.data.records.filter(cl => 'message' in cl)[0], null, 2))
+    expect(r.status).toBe(200)
+    // console.log(JSON.stringify(r.data.records.filter(cl => 'message' in cl)[0], null, 2))
 
     await rc.revoke()
   })

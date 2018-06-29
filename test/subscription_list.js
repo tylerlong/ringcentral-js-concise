@@ -15,7 +15,8 @@ describe('demo', () => {
       extension: process.env.RINGCENTRAL_EXTENSION,
       password: process.env.RINGCENTRAL_PASSWORD
     })
-    const res = await rc.get('/restapi/v1.0/subscription')
-    console.log(JSON.stringify(res.data, null, 2))
+    const r = await rc.get('/restapi/v1.0/subscription')
+    expect(r.status).toBe(200)
+    // console.log(JSON.stringify(r.data, null, 2))
   })
 })

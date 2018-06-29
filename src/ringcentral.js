@@ -36,7 +36,7 @@ class RingCentral {
     } else {
       data = querystring.stringify({ grant_type: 'password', username, extension, password })
     }
-    const r = await axios({
+    const r = await axios.request({
       method: 'post',
       url: URI(this.server).path('/restapi/oauth/token').toString(),
       data,
@@ -49,7 +49,7 @@ class RingCentral {
     if (this._token === undefined) {
       return
     }
-    const r = await axios({
+    const r = await axios.request({
       method: 'post',
       url: URI(this.server).path('/restapi/oauth/token').toString(),
       data: querystring.stringify({ grant_type: 'refresh_token', refresh_token: this._token.refresh_token }),
@@ -62,7 +62,7 @@ class RingCentral {
     if (this._token === undefined) {
       return
     }
-    await axios({
+    await axios.request({
       method: 'post',
       url: URI(this.server).path('/restapi/oauth/revoke').toString(),
       data: querystring.stringify({ token: this._token.access_token }),

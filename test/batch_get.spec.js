@@ -20,12 +20,13 @@ describe('ringcentral', () => {
 
     let r = await rc.get('/restapi/v1.0/glip/groups')
     const group = reduce(maxBy(g => g.members.length), { members: [] }, r.data.records)
-    console.log(group)
+    // console.log(group)
 
     r = await rc.get(`/restapi/v1.0/glip/persons/${group.members.join(',')}`)
     const data = multipartMixedParser.parse(r.data)
     const persons = data.splice(1) // first element in data is response status
-    console.log(JSON.stringify(persons, null, 2))
+    expect(persons.length > 0).toBe(true)
+    // console.log(JSON.stringify(persons, null, 2))
 
     await rc.revoke()
   })
