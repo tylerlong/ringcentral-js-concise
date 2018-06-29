@@ -139,7 +139,11 @@ class RingCentral {
   }
 
   _bearerAuthorizationHeader () {
-    return { Authorization: `Bearer ${this._token.access_token}` }
+    let accessToken = ''
+    if (this._token) {
+      accessToken = this._token.access_token
+    }
+    return { Authorization: `Bearer ${accessToken}` }
   }
 }
 
