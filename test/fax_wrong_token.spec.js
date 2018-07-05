@@ -12,13 +12,13 @@ https://stackoverflow.com/questions/50291205
 
 */
 
-const RingCentral = require('../src/ringcentral')
-const dotenv = require('dotenv')
-const FormData = require('form-data')
-const fs = require('fs')
-const path = require('path')
-const concat = require('concat-stream')
-const delay = require('timeout-as-promise')
+import RingCentral from '../src/ringcentral'
+import dotenv from 'dotenv'
+import FormData from 'form-data'
+import fs from 'fs'
+import path from 'path'
+import concat from 'concat-stream'
+import delay from 'timeout-as-promise'
 
 dotenv.config()
 

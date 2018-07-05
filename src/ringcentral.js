@@ -1,7 +1,7 @@
-const axios = require('axios')
-const { Base64 } = require('js-base64')
-const querystring = require('querystring')
-const URI = require('urijs')
+import axios from 'axios'
+import { Base64 } from 'js-base64'
+import querystring from 'querystring'
+import URI from 'urijs'
 
 class RingCentral {
   constructor (clientId, clientSecret, server) {
@@ -150,4 +150,4 @@ class RingCentral {
 RingCentral.SANDBOX_SERVER = 'https://platform.devtest.ringcentral.com'
 RingCentral.PRODUCTION_SERVER = 'https://platform.ringcentral.com'
 
-module.exports = RingCentral
+export default RingCentral

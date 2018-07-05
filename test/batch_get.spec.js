@@ -1,8 +1,8 @@
 /* eslint-env jest */
-const RingCentral = require('../src/ringcentral')
-const dotenv = require('dotenv')
-const { maxBy, reduce } = require('ramda')
-const multipartMixedParser = require('multipart-mixed-parser')
+import RingCentral from '../src/ringcentral'
+import dotenv from 'dotenv'
+import { maxBy, reduce } from 'ramda'
+import multipartMixedParser from 'multipart-mixed-parser'
 
 dotenv.config()
 

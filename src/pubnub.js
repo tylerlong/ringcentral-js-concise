@@ -1,4 +1,4 @@
-const PubNubSDK = require('pubnub')
+import PubNubSDK from 'pubnub'
 
 class PubNub {
   constructor (rc, events, messageCallback, statusCallback = undefined, presenceCallback = undefined) {
@@ -72,4 +72,4 @@ class PubNub {
   }
 }
 
-module.exports = PubNub
+export default PubNub

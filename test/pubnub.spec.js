@@ -1,11 +1,11 @@
 /* eslint-env jest */
-const RingCentral = require('../src/ringcentral')
-const PubNub = require('../src/pubnub')
-const dotenv = require('dotenv')
+import RingCentral from '../src/ringcentral'
+import PubNub from '../src/pubnub'
+import dotenv from 'dotenv'
 
 dotenv.config()
 
-jest.setTimeout(64000)
+jest.setTimeout(128000)
 
 const rc = new RingCentral(process.env.RINGCENTRAL_CLIENT_ID, process.env.RINGCENTRAL_CLIENT_SECRET, process.env.RINGCENTRAL_SERVER_URL)
 
