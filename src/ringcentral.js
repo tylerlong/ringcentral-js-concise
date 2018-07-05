@@ -3,6 +3,7 @@ import { Base64 } from 'js-base64'
 import querystring from 'querystring'
 import URI from 'urijs'
 import EventEmitter from 'events'
+import * as R from 'ramda'
 
 class RingCentral extends EventEmitter {
   constructor (clientId, clientSecret, server) {
@@ -91,53 +92,38 @@ class RingCentral extends EventEmitter {
   }
 
   request (config) {
-    config.url = URI(this.server).path(config.url).toString()
-    config.headers = this._patchHeaders(config.headers)
-    return axios.request(config)
+    return axios.request(R.merge(config, {
+      url: URI(this.server).path(config.url).toString(),
+      headers: this._patchHeaders(config.headers)
+    }))
   }
 
   get (url, config = {}) {
-    config.method = 'get'
-    config.url = url
-    return this.request(config)
+    return this.request(R.merge(config, { method: 'get', url }))
   }
 
   delete (url, config = {}) {
-    config.method = 'delete'
-    config.url = url
-    return this.request(config)
+    return this.request(R.merge(config, { method: 'delete', url }))
   }
 
   post (url, data = undefined, config = {}) {
-    config.method = 'post'
-    config.url = url
-    config.data = data
-    return this.request(config)
+    return this.request(R.merge(config, { method: 'post', url, data }))
   }
 
   put (url, data = undefined, config = {}) {
-    config.method = 'put'
-    config.url = url
-    config.data = data
-    return this.request(config)
+    return this.request(R.merge(config, { method: 'put', url, data }))
   }
 
   patch (url, data = undefined, config = {}) {
-    config.method = 'patch'
-    config.url = url
-    config.data = data
-    return this.request(config)
+    return this.request(R.merge(config, { method: 'patch', url, data }))
   }
 
   _patchHeaders (headers) {
-    if (!headers) {
-      headers = {}
-    }
     const userAgentHeader = 'tylerlong/ringcentral-js-concise'
-    return Object.assign(headers, this._bearerAuthorizationHeader(), {
+    return R.merge(headers, R.merge(this._bearerAuthorizationHeader(), {
       'X-User-Agent': userAgentHeader,
       'RC-User-Agent': userAgentHeader
-    })
+    }))
   }
 
   _basicAuthorizationHeader () {
