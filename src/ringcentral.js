@@ -19,9 +19,7 @@ class RingCentral extends EventEmitter {
     if (arguments.length === 0) { // get
       return this._token
     }
-    if (this._token !== _token) {
-      this.emit('tokenChanged', _token)
-    }
+    const tokenChanged = this._token !== _token
     this._token = _token
     if (this._timeout) {
       clearTimeout(this._timeout)
@@ -31,6 +29,9 @@ class RingCentral extends EventEmitter {
       this._timeout = setTimeout(() => {
         this.refresh()
       }, (_token.expires_in - 120) * 1000)
+    }
+    if (tokenChanged) {
+      this.emit('tokenChanged', _token)
     }
   }
 
