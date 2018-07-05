@@ -2,9 +2,11 @@ import axios from 'axios'
 import { Base64 } from 'js-base64'
 import querystring from 'querystring'
 import URI from 'urijs'
+import EventEmitter from 'events'
 
-class RingCentral {
+class RingCentral extends EventEmitter {
   constructor (clientId, clientSecret, server) {
+    super()
     this.clientId = clientId
     this.clientSecret = clientSecret
     this.server = server
@@ -16,6 +18,9 @@ class RingCentral {
   token (_token) {
     if (arguments.length === 0) { // get
       return this._token
+    }
+    if (this._token !== _token) {
+      this.emit('tokenChanged', _token)
     }
     this._token = _token
     if (this._timeout) {
