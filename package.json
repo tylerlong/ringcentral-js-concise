@@ -1,11 +1,11 @@
 {
   "name": "ringcentral-js-concise",
-  "version": "0.5.1",
+  "version": "0.5.2",
   "description": "Concise JavaScript SDK for RingCentral.",
   "repository": "git@github.com:tylerlong/ringcentral-js-concise.git",
   "author": "Tyler Long <tyler4long@gmail.com>",
   "license": "MIT",
-  "main": "src/ringcentral.js",
+  "main": "dist/ringcentral.js",
   "module": "src/ringcentral.js",
   "scripts": {
     "upgrade": "yarn-upgrade-all",
