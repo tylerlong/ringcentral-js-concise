@@ -49,8 +49,14 @@ class PubNub {
     if (!this.subscription()) {
       return
     }
-    const r = await this.rc.put(`/restapi/v1.0/subscription/${this.subscription().id}`, this._requestBody())
-    this.subscription(r.data)
+    try {
+      const r = await this.rc.put(`/restapi/v1.0/subscription/${this.subscription().id}`, this._requestBody())
+      this.subscription(r.data)
+    } catch (e) {
+      if (e.response && e.response.status === 404) { // subscription expired
+        await this.subscribe()
+      }
+    }
   }
 
   async revoke () {
