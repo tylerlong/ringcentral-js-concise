@@ -7,7 +7,8 @@ export default {
     path: path.resolve(__dirname, 'dist'),
     filename: 'ringcentral.js',
     library: 'RingCentral',
-    libraryTarget: 'umd'
+    libraryTarget: 'umd',
+    globalObject: 'this' // fix window undefined issue in node
   },
   externals: {
     axios: {
