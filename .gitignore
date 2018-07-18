@@ -4,3 +4,4 @@ node_modules/
 .env.prod
 yarn-error.log
 dist/
+test/index.html

@@ -2,6 +2,7 @@ import path from 'path'
 
 export default {
   mode: 'production',
+  devtool: 'source-map',
   entry: './src/ringcentral.js',
   output: {
     path: path.resolve(__dirname, 'dist'),

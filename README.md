@@ -18,10 +18,10 @@ yarn add ringcentral-js-concise
 
 ```html
 <script src="https://unpkg.com/axios@0.18.0/dist/axios.min.js"></script>
-<script src="https://unpkg.com/ringcentral-js-concise@0.4.6/dist/ringcentral.js"></script>
+<script src="https://unpkg.com/ringcentral-js-concise@0.5.4/dist/ringcentral.js"></script>
 ```
 
-`ringcentral-js-concise` depends on `axios`. With the code above you will have a global variable named `RingCentral`.
+`ringcentral-js-concise` depends on `axios`. With the code above you will have a global variable named `RingCentral.default`.
 
 
 ## Usage
