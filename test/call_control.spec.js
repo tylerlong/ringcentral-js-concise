@@ -6,7 +6,7 @@ import delay from 'timeout-as-promise'
 
 dotenv.config()
 
-jest.setTimeout(1280000)
+jest.setTimeout(128000)
 
 const rc = new RingCentral(process.env.RINGCENTRAL_CLIENT_ID, process.env.RINGCENTRAL_CLIENT_SECRET, process.env.RINGCENTRAL_SERVER_URL)
 
@@ -18,25 +18,28 @@ describe('ringcentral', () => {
       password: process.env.RINGCENTRAL_PASSWORD
     })
 
+    let count = 0
     const pubnub = new PubNub(rc, [
-      '/restapi/v1.0/account/~/extension/~/telephony/sessions',
-      '/restapi/v1.0/account/~/extension/~/message-store'
+      '/restapi/v1.0/account/~/extension/~/telephony/sessions'
     ], message => {
-      console.log(message)
+      console.log(JSON.stringify(message, null, 2))
+      count += 1
     })
     await pubnub.subscribe()
-    console.log(pubnub.subscription())
 
     await delay(3000)
 
-    await rc.post('/restapi/v1.0/account/~/extension/~/sms', {
-      to: [{ phoneNumber: process.env.RINGCENTRAL_RECEIVER }],
+    await rc.post('/restapi/v1.0/account/~/extension/~/ring-out', {
       from: { phoneNumber: process.env.RINGCENTRAL_USERNAME },
-      text: 'Hello world'
+      to: { phoneNumber: process.env.RINGCENTRAL_RECEIVER },
+      playPrompt: true
     })
 
-    await delay(1000000)
+    await delay(5000)
 
+    expect(count).toBeGreaterThan(0)
+
+    await pubnub.revoke()
     await rc.revoke()
   })
 })
