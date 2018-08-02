@@ -26,6 +26,7 @@ describe('ringcentral', () => {
       expect(r.status).toBe(200)
     } catch (e) {
       console.log(e.response.data)
+      expect(false).toBe(true) // make this test fail upon exception
     }
 
     await rc.revoke()
