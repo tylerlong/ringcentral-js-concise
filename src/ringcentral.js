@@ -92,8 +92,12 @@ class RingCentral extends EventEmitter {
   }
 
   request (config) {
+    let uri = URI(config.url)
+    if (uri.hostname() === '') {
+      uri = URI(this.server).path(config.url)
+    }
     return axios.request(R.merge(config, {
-      url: URI(this.server).path(config.url).toString(),
+      url: uri.toString(),
       headers: this._patchHeaders(config.headers)
     }))
   }
