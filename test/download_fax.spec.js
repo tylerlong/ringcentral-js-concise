@@ -4,7 +4,7 @@ import dotenv from 'dotenv'
 
 dotenv.config()
 
-jest.setTimeout(64000)
+jest.setTimeout(256000)
 
 const rc = new RingCentral(process.env.RINGCENTRAL_CLIENT_ID, process.env.RINGCENTRAL_CLIENT_SECRET, process.env.RINGCENTRAL_SERVER_URL)
 
@@ -17,21 +17,26 @@ describe('ringcentral', () => {
     })
 
     let r = await rc.get('/restapi/v1.0/account/~/extension/~/message-store', {
-      params: { dateFrom: '2018-03-10T18:07:52.534Z' }
+      params: {
+        dateFrom: '2015-03-10T18:07:52.534Z',
+        direction: 'Outbound',
+        messageType: 'Fax'
+      }
     })
     expect(r.status).toBe(200)
-    const faxes = r.data.records.filter(m => m.type === 'Fax')
-    const lastFax = faxes[faxes.length - 1]
 
-    try {
-      r = await rc.get(`/restapi/v1.0/account/~/extension/~/message-store/${lastFax.id}/content/${lastFax.attachments[0].id}`)
-      expect(r.status).toBe(200)
-    } catch (e) {
-      console.log(e)
-      console.log(e.response.data)
-      expect(false).toBe(true) // make this test fail upon exception
+    for (const fax of r.data.records) {
+      try {
+        r = await rc.get(fax.attachments[0].uri)
+        expect(r.status).toBe(200)
+      } catch (e) {
+        console.log('fail', fax.id)
+        console.log(JSON.stringify(fax, null, 2))
+        console.log(JSON.stringify(e.response, null, 2))
+        expect(false).toBe(true) // make this test fail upon exception
+      }
+      break // for loop is for debugging only.
     }
-
     await rc.revoke()
   })
 })
