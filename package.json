@@ -10,7 +10,7 @@
   "scripts": {
     "upgrade": "yarn-upgrade-all",
     "test": "standard && jest",
-    "release": "webpack --progress --colors && babel src/pubnub.js -o src/pubnub.es5.js"
+    "release": "webpack --progress --colors"
   },
   "dependencies": {
     "axios": "^0.18.0",
@@ -20,7 +20,6 @@
     "urijs": "^1.19.1"
   },
   "devDependencies": {
-    "babel-cli": "^6.26.0",
     "babel-preset-env": "^1.7.0",
     "concat-stream": "^1.6.2",
     "dotenv": "^6.0.0",
