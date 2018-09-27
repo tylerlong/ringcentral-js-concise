@@ -7,3 +7,4 @@ dist/
 test/index.html
 *.es5.js
 *.map
+test.pdf
