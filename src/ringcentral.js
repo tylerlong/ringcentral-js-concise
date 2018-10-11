@@ -6,7 +6,7 @@ import EventEmitter from 'events'
 import * as R from 'ramda'
 
 class RingCentral extends EventEmitter {
-  constructor (clientId, clientSecret, server) {
+  constructor (clientId, clientSecret, server, axiosInstance) {
     super()
     this.clientId = clientId
     this.clientSecret = clientSecret
@@ -14,6 +14,7 @@ class RingCentral extends EventEmitter {
     this._token = undefined
     this._timeout = undefined
     this.autoRefresh = false
+    this._axios = axiosInstance || axios.create()
   }
 
   token (_token) {
@@ -43,7 +44,7 @@ class RingCentral extends EventEmitter {
     } else {
       data = querystring.stringify({ grant_type: 'password', username, extension, password })
     }
-    const r = await axios.request({
+    const r = await this._axios.request({
       method: 'post',
       url: URI(this.server).path('/restapi/oauth/token').toString(),
       data,
@@ -56,7 +57,7 @@ class RingCentral extends EventEmitter {
     if (this._token === undefined) {
       return
     }
-    const r = await axios.request({
+    const r = await this._axios.request({
       method: 'post',
       url: URI(this.server).path('/restapi/oauth/token').toString(),
       data: querystring.stringify({ grant_type: 'refresh_token', refresh_token: this._token.refresh_token }),
@@ -69,7 +70,7 @@ class RingCentral extends EventEmitter {
     if (this._token === undefined) {
       return
     }
-    await axios.request({
+    await this._axios.request({
       method: 'post',
       url: URI(this.server).path('/restapi/oauth/revoke').toString(),
       data: querystring.stringify({ token: this._token.access_token }),
@@ -96,7 +97,7 @@ class RingCentral extends EventEmitter {
     if (uri.hostname() === '') {
       uri = URI(this.server).path(config.url)
     }
-    return axios.request(R.merge(config, {
+    return this._axios.request(R.merge(config, {
       url: uri.toString(),
       headers: this._patchHeaders(config.headers)
     }))
