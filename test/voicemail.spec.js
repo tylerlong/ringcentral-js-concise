@@ -21,13 +21,13 @@ describe('ringcentral', () => {
       type: 'Voice',
       direction: 'Inbound',
       view: 'Detailed'
-    }})
+    } })
 
     // fetch voice mail
     await rc.get('/restapi/v1.0/account/~/extension/~/message-store', { params: {
       messageType: 'VoiceMail',
       dateFrom: '2017-05-16T05:47:00.000Z'
-    }})
+    } })
 
     // note: for voicemail,  callLog.message.id === message-store.attachments[0].id
 

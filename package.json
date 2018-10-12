@@ -1,6 +1,6 @@
 {
   "name": "ringcentral-js-concise",
-  "version": "0.6.0",
+  "version": "0.6.1",
   "description": "Concise JavaScript SDK for RingCentral.",
   "repository": "git@github.com:tylerlong/ringcentral-js-concise.git",
   "author": "Tyler Long <tyler4long@gmail.com>",
@@ -14,25 +14,25 @@
   },
   "dependencies": {
     "axios": "^0.18.0",
-    "js-base64": "^2.4.8",
-    "pubnub": "^4.21.2",
+    "js-base64": "^2.4.9",
+    "pubnub": "^4.21.6",
     "ramda": "^0.25.0",
     "urijs": "^1.19.1"
   },
   "devDependencies": {
     "babel-preset-env": "^1.7.0",
     "concat-stream": "^1.6.2",
-    "dotenv": "^6.0.0",
-    "eslint-plugin-html": "^4.0.5",
+    "dotenv": "^6.1.0",
+    "eslint-plugin-html": "^4.0.6",
     "form-data": "^2.3.2",
-    "husky": "^0.14.3",
-    "jest": "^23.4.1",
+    "husky": "^1.1.2",
+    "jest": "^23.6.0",
     "multipart-mixed-parser": "^0.1.2",
-    "standard": "^11.0.1",
+    "standard": "^12.0.1",
     "timeout-as-promise": "^1.0.0",
-    "webpack": "^4.16.1",
-    "webpack-cli": "^3.0.8",
-    "yarn-upgrade-all": "^0.3.0"
+    "webpack": "^4.20.2",
+    "webpack-cli": "^3.1.2",
+    "yarn-upgrade-all": "^0.5.0"
   },
   "files": [
     "dist/*",
