@@ -32,7 +32,7 @@ describe('ringcentral', () => {
 
     let r = await rc.get('/restapi/v1.0/glip/groups')
     const everyoneGroup = r.data.records.filter(g => g.type === 'Everyone')[0]
-    console.log(everyoneGroup.members)
+    // console.log(everyoneGroup.members)
 
     try {
       r = await rc.post('/restapi/v1.0/glip/groups', {
@@ -44,7 +44,7 @@ describe('ringcentral', () => {
       })
       // console.log(r.data)
     } catch (e) {
-      console.log(e.response.data)
+      // console.log(e.response.data)
     }
 
     await rc.revoke()
