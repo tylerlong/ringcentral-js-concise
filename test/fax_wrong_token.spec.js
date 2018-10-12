@@ -48,7 +48,7 @@ describe('ringcentral', () => {
         expect(r.status).toBe(200)
       } catch (e) {
         expect(e.response.status).toBe(403)
-        expect(e.response.data.errorCode).toBe('CMN-408')
+        expect(e.response.data.errorCode).toBe('CMN-419')
       }
     }))
 
@@ -56,6 +56,21 @@ describe('ringcentral', () => {
     await rc.revoke()
   })
 })
+
+/*
+
+Latest error message has been changed to:
+
+{ errorCode: 'CMN-419',
+      message:
+       'In order to call this API endpoint for another extension, user needs to have [OutboundFaxes] permission granted with extended scope',
+      errors:
+       [ { errorCode: 'CMN-419',
+           message:
+            'In order to call this API endpoint for another extension, user needs to have [OutboundFaxes] permission granted with extended scope',
+           permissionsName: 'OutboundFaxes' } ],
+      permissionsName: 'OutboundFaxes' }
+*/
 
 /*
 { errorCode: 'CMN-408',

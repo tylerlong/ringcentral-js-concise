@@ -35,7 +35,7 @@ describe('ringcentral', () => {
       playPrompt: true
     })
 
-    await delay(5000)
+    await delay(10000)
 
     expect(count).toBeGreaterThan(0)
 

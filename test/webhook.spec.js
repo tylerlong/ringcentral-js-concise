@@ -37,7 +37,7 @@ describe('webhook', () => {
       })
       subId = res.data.id
     } catch (e) {
-      console.error(e.response.data)
+      // console.error(e.response.data)
       return
     }
     await timeout(5000)

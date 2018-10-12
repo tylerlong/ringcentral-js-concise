@@ -16,8 +16,9 @@ describe('ringcentral', () => {
       password: process.env.RINGCENTRAL_PASSWORD
     })
 
-    const r = await rc.get('/restapi/v1.0/dictionary/permission/ReadPresenceSettings')
-    console.log(r.data)
+    // const r =
+    await rc.get('/restapi/v1.0/dictionary/permission/ReadPresenceSettings')
+    // console.log(r.data)
     await rc.revoke()
   })
 })

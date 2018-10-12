@@ -1,8 +1,8 @@
 /* eslint-env jest */
 import RingCentral from '../src/ringcentral'
-import PubNub from '../src/pubnub'
+// import PubNub from '../src/pubnub'
 import dotenv from 'dotenv'
-import delay from 'timeout-as-promise'
+// import delay from 'timeout-as-promise'
 
 dotenv.config()
 
@@ -18,8 +18,9 @@ describe('answering rule', () => {
       password: process.env.RINGCENTRAL_PASSWORD
     })
 
-    let r = await rc.get('/restapi/v1.0/account/~/extension/~/answering-rule/business-hours-rule')
-    console.log(r.data)
+    // let r =
+    await rc.get('/restapi/v1.0/account/~/extension/~/answering-rule/business-hours-rule')
+    // console.log(r.data)
 
     // try {
     //   r = await rc.put('/restapi/v1.0/account/~/extension/~/answering-rule/business-hours-rule', {

@@ -42,7 +42,7 @@ describe('ringcentral', () => {
         description: 'Group created for testing with the ringcentral-js-concise project',
         members: everyoneGroup.members
       })
-      console.log(r.data)
+      // console.log(r.data)
     } catch (e) {
       console.log(e.response.data)
     }
