@@ -10,7 +10,8 @@
   "scripts": {
     "upgrade": "yarn-upgrade-all",
     "test": "standard && jest",
-    "release": "webpack --progress --colors"
+    "release": "webpack --progress --colors",
+    "prepublishOnly": "yarn release"
   },
   "dependencies": {
     "axios": "^0.18.0",
