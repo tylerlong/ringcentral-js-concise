@@ -18,5 +18,6 @@ describe('binary', () => {
       responseType: 'arraybuffer'
     })
     fs.writeFileSync('test.pdf', Buffer.from(r.data, 'binary'))
+    fs.unlinkSync('test.pdf')
   })
 })
