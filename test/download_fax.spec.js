@@ -1,6 +1,8 @@
 /* eslint-env jest */
-import RingCentral from '../src/ringcentral'
 import dotenv from 'dotenv'
+import fs from 'fs'
+
+import RingCentral from '../src/ringcentral'
 
 dotenv.config()
 
@@ -25,18 +27,11 @@ describe('ringcentral', () => {
     })
     expect(r.status).toBe(200)
 
-    for (const fax of r.data.records) {
-      try {
-        r = await rc.get(fax.attachments[0].uri)
-        expect(r.status).toBe(200)
-      } catch (e) {
-        console.log('fail', fax.id)
-        console.log(JSON.stringify(fax, null, 2))
-        console.log(JSON.stringify(e.response, null, 2))
-        expect(false).toBe(true) // make this test fail upon exception
-      }
-      break // for loop is for debugging only.
-    }
+    const fax = r.data.records[r.data.records.length - 1]
+    r = await rc.get(fax.attachments[0].uri)
+    expect(r.status).toBe(200)
+    fs.writeFileSync('test.pdf', Buffer.from(r.data, 'binary'))
+    fs.unlinkSync('test.pdf')
     await rc.revoke()
   })
 })

@@ -27,6 +27,14 @@ class RingCentral extends EventEmitter {
         return await request(...args)
       } catch (e) {
         if (e.response) {
+          if ((e.response.data.errors || []).some(error => /\btoken\b/i.test(error.message))) { // access token expired
+            try {
+              await this.refresh()
+              return await request(...args)
+            } catch (e) {
+              throw new HTTPError(e.response.status, e.response.statusText, e.response.data)
+            }
+          }
           throw new HTTPError(e.response.status, e.response.statusText, e.response.data)
         }
         throw e
