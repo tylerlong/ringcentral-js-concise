@@ -27,7 +27,7 @@ describe('ringcentral', () => {
         text: 'Hello world'
       })
     } catch (e) {
-      expect(e.response.status).toBe(401)
+      expect(e.status).toBe(401)
     }
 
     await rc.refresh() // refresh again with old refresh token

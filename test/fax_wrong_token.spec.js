@@ -47,8 +47,8 @@ describe('ringcentral', () => {
         })
         expect(r.status).toBe(200)
       } catch (e) {
-        expect(e.response.status).toBe(403)
-        expect(e.response.data.errorCode).toBe('CMN-419')
+        expect(e.status).toBe(403)
+        expect(e.data.errorCode).toBe('CMN-419')
       }
     }))
 

@@ -1,0 +1,23 @@
+/* eslint-env jest */
+import dotenv from 'dotenv'
+import RingCentral from '../src/ringcentral'
+
+dotenv.config()
+
+jest.setTimeout(64000)
+
+const rc = new RingCentral(process.env.RINGCENTRAL_CLIENT_ID, process.env.RINGCENTRAL_CLIENT_SECRET, process.env.RINGCENTRAL_SERVER_URL)
+
+describe('HTTPError', () => {
+  test('default', async () => {
+    expect(rc.get('/restapi/v1.0/account/~/extension/~')).rejects.toThrow()
+    try {
+      await rc.get('/restapi/v1.0/account/~/extension/~')
+    } catch (e) {
+      expect(e.status).toBe(401)
+      expect(e.statusText).toBe('Unauthorized')
+      expect(e.message).toBe(`401 Unauthorized
+{"errorCode":"AGW-402","message":"Invalid Authorization header","errors":[{"errorCode":"AGW-402","message":"Invalid Authorization header"}]}`)
+    }
+  })
+})

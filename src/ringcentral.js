@@ -4,6 +4,15 @@ import querystring from 'querystring'
 import URI from 'urijs'
 import EventEmitter from 'events'
 
+class HTTPError extends Error {
+  constructor (status, statusText, data) {
+    super(`${status} ${statusText}\n${JSON.stringify(data)}`)
+    this.status = status
+    this.statusText = statusText
+    this.data = data
+  }
+}
+
 class RingCentral extends EventEmitter {
   constructor (clientId, clientSecret, server, axiosInstance) {
     super()
@@ -14,6 +23,17 @@ class RingCentral extends EventEmitter {
     this._timeout = undefined
     this.autoRefresh = false
     this._axios = axiosInstance || axios.create()
+    const request = this._axios.request.bind(this._axios)
+    this._axios.request = async (...args) => {
+      try {
+        return await request(...args)
+      } catch (e) {
+        if (e.response) {
+          throw new HTTPError(e.response.status, e.response.statusText, e.response.data)
+        }
+        throw e
+      }
+    }
   }
 
   token (_token) {
