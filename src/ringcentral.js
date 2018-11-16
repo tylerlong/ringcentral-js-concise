@@ -3,7 +3,6 @@ import { Base64 } from 'js-base64'
 import querystring from 'querystring'
 import URI from 'urijs'
 import EventEmitter from 'events'
-import * as R from 'ramda'
 
 class RingCentral extends EventEmitter {
   constructor (clientId, clientSecret, server, axiosInstance) {
@@ -97,38 +96,41 @@ class RingCentral extends EventEmitter {
     if (uri.hostname() === '') {
       uri = URI(this.server).path(config.url)
     }
-    return this._axios.request(R.merge(config, {
+    return this._axios.request({
+      ...config,
       url: uri.toString(),
       headers: this._patchHeaders(config.headers)
-    }))
+    })
   }
 
   get (url, config = {}) {
-    return this.request(R.merge(config, { method: 'get', url }))
+    return this.request({ ...config, method: 'get', url })
   }
 
   delete (url, config = {}) {
-    return this.request(R.merge(config, { method: 'delete', url }))
+    return this.request({ ...config, method: 'delete', url })
   }
 
   post (url, data = undefined, config = {}) {
-    return this.request(R.merge(config, { method: 'post', url, data }))
+    return this.request({ ...config, method: 'post', url, data })
   }
 
   put (url, data = undefined, config = {}) {
-    return this.request(R.merge(config, { method: 'put', url, data }))
+    return this.request({ ...config, method: 'put', url, data })
   }
 
   patch (url, data = undefined, config = {}) {
-    return this.request(R.merge(config, { method: 'patch', url, data }))
+    return this.request({ ...config, method: 'patch', url, data })
   }
 
   _patchHeaders (headers) {
     const userAgentHeader = 'tylerlong/ringcentral-js-concise'
-    return R.merge(headers, R.merge(this._bearerAuthorizationHeader(), {
+    return {
+      ...headers,
+      ...this._bearerAuthorizationHeader(),
       'X-User-Agent': userAgentHeader,
       'RC-User-Agent': userAgentHeader
-    }))
+    }
   }
 
   _basicAuthorizationHeader () {
