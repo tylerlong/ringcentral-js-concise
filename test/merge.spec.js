@@ -1,8 +1,5 @@
 /* eslint-env jest */
 import * as R from 'ramda'
-import dotenv from 'dotenv'
-
-dotenv.config()
 
 const a = { a: 1 }
 const b = { b: 2 }
