@@ -85,7 +85,16 @@ rc.autoRefresh = true
 Please refer to [test cases](/test).
 
 
-# Use custom axios Instance
+## PubNub
+
+```js
+import PubNub from 'ringcentral-js-concise/dist/pubnub'
+```
+
+Check the [PubNub sample code](./test/pubnub.spec.js)
+
+
+## Use custom axios Instance
 
 The underlying HTTP library is [axios](https://github.com/axios/axios).
 
