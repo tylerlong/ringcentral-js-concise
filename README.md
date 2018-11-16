@@ -85,6 +85,19 @@ rc.autoRefresh = true
 Please refer to [test cases](/test).
 
 
+# Use custom axios Instance
+
+The underlying HTTP library is [axios](https://github.com/axios/axios).
+
+The 4th parameter of `RingCentral`'s constructor allows you to specify a custom axios Instance:
+
+```js
+const rc = new RingCentral(clientId, clientSecret, server, axiosInstance)
+```
+
+The 4th parameter is optional, if you omit it, a default `axiosInstance` with be used.
+
+
 ## Test
 
 ```
