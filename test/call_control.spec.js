@@ -20,9 +20,8 @@ describe('ringcentral', () => {
 
     let count = 0
     const pubnub = new PubNub(rc, [
-      '/restapi/v1.0/account/~/extension/~/telephony/sessions'
+      '/restapi/v1.0/account/~/extension/~/presence?detailedTelephonyState=true'
     ], message => {
-      console.log(JSON.stringify(message, null, 2))
       count += 1
     })
     await pubnub.subscribe()
@@ -35,7 +34,7 @@ describe('ringcentral', () => {
       playPrompt: true
     })
 
-    await delay(10000)
+    await delay(20000)
 
     expect(count).toBeGreaterThan(0)
 

@@ -1,11 +1,8 @@
-import path from 'path'
-
 const defaultConfig = {
   mode: 'production',
   devtool: 'source-map',
   entry: './src/ringcentral.js',
   output: {
-    path: path.resolve(__dirname, 'dist'),
     filename: 'ringcentral.js',
     library: 'RingCentral',
     libraryTarget: 'umd',
@@ -26,8 +23,7 @@ const pubnubConfig = {
   devtool: 'source-map',
   entry: './src/pubnub.js',
   output: {
-    path: path.resolve(__dirname, 'src'),
-    filename: 'pubnub.es5.js',
+    filename: 'pubnub.js',
     library: 'RCPubNub',
     libraryTarget: 'umd',
     globalObject: 'this' // fix window undefined issue in node
