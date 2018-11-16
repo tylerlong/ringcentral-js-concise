@@ -110,7 +110,7 @@ The 4th parameter is optional, if you omit it, a default `axiosInstance` with be
 ## Test
 
 ```
-mv .env.sample .env
+mv .sample.env .env
 edit .env
 yarn test
 ```
