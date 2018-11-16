@@ -20,8 +20,6 @@ class RingCentral extends EventEmitter {
     this.clientSecret = clientSecret
     this.server = server
     this._token = undefined
-    this._timeout = undefined
-    this.autoRefresh = false
     this._axios = axiosInstance || axios.create()
     const request = this._axios.request.bind(this._axios)
     this._axios.request = async (...args) => {
@@ -42,15 +40,6 @@ class RingCentral extends EventEmitter {
     }
     const tokenChanged = this._token !== _token
     this._token = _token
-    if (this._timeout) {
-      clearTimeout(this._timeout)
-      this._timeout = undefined
-    }
-    if (this.autoRefresh && _token) {
-      this._timeout = setTimeout(() => {
-        this.refresh()
-      }, (_token.expires_in - 120) * 1000)
-    }
     if (tokenChanged) {
       this.emit('tokenChanged', _token)
     }

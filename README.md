@@ -54,11 +54,8 @@ rc.token(token) // set
 
 ### Auto refresh token
 
-Token expires. If you want the SDK to call `rc.refresh()` for you automatically:
+Token expires. You can call `rc.refresh()` to refresh token. But normally you don't need to do that because this library will refresh for you if access token expired.
 
-```js
-rc.autoRefresh = true
-```
 
 ### HTTP Methods: get, post, put, delete
 
