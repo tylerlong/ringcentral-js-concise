@@ -32,7 +32,10 @@ class RingCentral extends EventEmitter {
               await this.refresh()
               return await request(...args)
             } catch (e) {
-              throw new HTTPError(e.response.status, e.response.statusText, e.response.data)
+              if (e.response) {
+                throw new HTTPError(e.response.status, e.response.statusText, e.response.data)
+              }
+              throw e
             }
           }
           throw new HTTPError(e.response.status, e.response.statusText, e.response.data)
