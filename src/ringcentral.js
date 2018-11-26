@@ -5,11 +5,15 @@ import URI from 'urijs'
 import EventEmitter from 'events'
 
 class HTTPError extends Error {
-  constructor (status, statusText, data) {
-    super(`${status} ${statusText}\n${JSON.stringify(data)}`)
+  constructor (status, statusText, data, config) {
+    super(`status: ${status}
+statusText: ${statusText}
+data: ${JSON.stringify(data, null, 2)}
+config: ${JSON.stringify(config, null, 2)}`)
     this.status = status
     this.statusText = statusText
     this.data = data
+    this.config = config
   }
 }
 
@@ -22,7 +26,17 @@ class RingCentral extends EventEmitter {
     this._token = undefined
     this._axios = axiosInstance || axios.create()
     const request = this._axios.request.bind(this._axios)
-    this._axios.request = async (...args) => {
+    this._axios._request = async (...args) => { // do not try to refresh token
+      try {
+        return await request(...args)
+      } catch (e) {
+        if (e.response) {
+          throw new HTTPError(e.response.status, e.response.statusText, e.response.data, e.response.config)
+        }
+        throw e
+      }
+    }
+    this._axios.request = async (...args) => { // try to refresh token if necessary
       try {
         return await request(...args)
       } catch (e) {
@@ -33,12 +47,12 @@ class RingCentral extends EventEmitter {
               return await request(...args)
             } catch (e) {
               if (e.response) {
-                throw new HTTPError(e.response.status, e.response.statusText, e.response.data)
+                throw new HTTPError(e.response.status, e.response.statusText, e.response.data, e.response.config)
               }
               throw e
             }
           }
-          throw new HTTPError(e.response.status, e.response.statusText, e.response.data)
+          throw new HTTPError(e.response.status, e.response.statusText, e.response.data, e.response.config)
         }
         throw e
       }
@@ -56,12 +70,12 @@ class RingCentral extends EventEmitter {
     }
   }
 
-  async authorize ({ username, extension, password, code, redirectUri }) {
+  async authorize ({ username, extension, password, code, redirectUri }, options = {}) {
     let data
     if (code) {
-      data = querystring.stringify({ grant_type: 'authorization_code', code, redirect_uri: redirectUri })
+      data = querystring.stringify({ grant_type: 'authorization_code', code, redirect_uri: redirectUri, ...options })
     } else {
-      data = querystring.stringify({ grant_type: 'password', username, extension, password })
+      data = querystring.stringify({ grant_type: 'password', username, extension, password, ...options })
     }
     const r = await this._axios.request({
       method: 'post',
@@ -76,7 +90,7 @@ class RingCentral extends EventEmitter {
     if (this._token === undefined) {
       return
     }
-    const r = await this._axios.request({
+    const r = await this._axios._request({
       method: 'post',
       url: URI(this.server).path('/restapi/oauth/token').toString(),
       data: querystring.stringify({ grant_type: 'refresh_token', refresh_token: this._token.refresh_token }),
