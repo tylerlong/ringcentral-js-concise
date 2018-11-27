@@ -9,8 +9,8 @@ jest.setTimeout(64000)
 
 const rc = new RingCentral(process.env.RINGCENTRAL_CLIENT_ID, process.env.RINGCENTRAL_CLIENT_SECRET, process.env.RINGCENTRAL_SERVER_URL)
 
-describe('token expire', () => {
-  test('default', async () => {
+describe('token invalid', () => {
+  test('token expire', async () => {
     await rc.authorize({
       username: process.env.RINGCENTRAL_USERNAME,
       extension: process.env.RINGCENTRAL_EXTENSION,
@@ -25,6 +25,26 @@ describe('token expire', () => {
     } catch (e) { // refresh token expired
       expect(e.status).toBe(400)
       expect(e.data.error_description).toBe('Token expired')
+    } finally {
+      await rc.revoke()
+    }
+  })
+
+  test('refresh token wrong', async () => {
+    await rc.authorize({
+      username: process.env.RINGCENTRAL_USERNAME,
+      extension: process.env.RINGCENTRAL_EXTENSION,
+      password: process.env.RINGCENTRAL_PASSWORD
+    })
+    const token = rc.token()
+    token.refresh_token = 'fdasfdsafdsa'
+    rc.token(token)
+    try {
+      await rc.refresh()
+    } catch (e) {
+      console.log('exception')
+      expect(e.status).toBe(400)
+      expect(e.data.error_description).toBe('Invalid token')
     } finally {
       await rc.revoke()
     }
