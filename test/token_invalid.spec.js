@@ -42,7 +42,6 @@ describe('token invalid', () => {
     try {
       await rc.refresh()
     } catch (e) {
-      console.log('exception')
       expect(e.status).toBe(400)
       expect(e.data.error_description).toBe('Invalid token')
     } finally {
