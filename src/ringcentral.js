@@ -26,9 +26,9 @@ class RingCentral extends EventEmitter {
     this._token = undefined
     this._axios = axiosInstance || axios.create()
     const request = this._axios.request.bind(this._axios)
-    this._axios._request = async (...args) => { // do not try to refresh token
+    this._axios._request = async config => { // do not try to refresh token
       try {
-        return await request(...args)
+        return await request(config)
       } catch (e) {
         if (e.response) {
           throw new HTTPError(e.response.status, e.response.statusText, e.response.data, e.response.config)
@@ -36,15 +36,16 @@ class RingCentral extends EventEmitter {
         throw e
       }
     }
-    this._axios.request = async (...args) => { // try to refresh token if necessary
+    this._axios.request = async config => { // try to refresh token if necessary
       try {
-        return await request(...args)
+        return await request(config)
       } catch (e) {
         if (e.response) {
           if ((e.response.data.errors || []).some(error => /\btoken\b/i.test(error.message))) { // access token expired
             try {
               await this.refresh()
-              return await request(...args)
+              config.headers = { ...config.headers, ...this._bearerAuthorizationHeader() }
+              return await request(config)
             } catch (e) {
               if (e.response) {
                 throw new HTTPError(e.response.status, e.response.statusText, e.response.data, e.response.config)
