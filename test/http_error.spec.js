@@ -16,8 +16,6 @@ describe('HTTPError', () => {
     } catch (e) {
       expect(e.status).toBe(401)
       expect(e.statusText).toBe('Unauthorized')
-      expect(e.message).toBe(`401 Unauthorized
-{"errorCode":"AGW-402","message":"Invalid Authorization header","errors":[{"errorCode":"AGW-402","message":"Invalid Authorization header"}]}`)
     }
   })
 })
