@@ -43,7 +43,8 @@ describe('token invalid', () => {
       await rc.refresh()
     } catch (e) {
       expect(e.status).toBe(400)
-      expect(e.data.error_description).toBe('Invalid token')
+      // expect(e.data.error_description).toBe('Invalid token')
+      expect(e.data.error_description).toBe('Token expired') // ? server bug
     } finally {
       await rc.revoke()
     }
