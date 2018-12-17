@@ -3,6 +3,7 @@ import { Base64 } from 'js-base64'
 import querystring from 'querystring'
 import URI from 'urijs'
 import EventEmitter from 'events'
+import multipartMixedParser from 'multipart-mixed-parser'
 
 class HTTPError extends Error {
   constructor (status, statusText, data, config) {
@@ -160,6 +161,25 @@ class RingCentral extends EventEmitter {
 
   patch (url, data = undefined, config = {}) {
     return this.request({ ...config, method: 'patch', url, data })
+  }
+
+  async batchGet (url, ids, batchSize, config = {}) {
+    const cache = {}
+    const result = []
+    for (let i = 0; i < ids.length; i += batchSize) {
+      let someIds = ids.slice(i, i + batchSize)
+      if (someIds.length <= 1) {
+        someIds = [...someIds, ids[0]] // turn single record fetch to batch fetch
+      }
+      const r = await this.get(`${url}/${someIds.join(',')}`, config)
+      for (const item of multipartMixedParser.parse(r.data).slice(1).filter(p => 'id' in p)) {
+        if (!cache[item.id]) {
+          cache[item.id] = true
+          result.push(item)
+        }
+      }
+    }
+    return result
   }
 
   _patchHeaders (headers) {

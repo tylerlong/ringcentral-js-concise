@@ -30,4 +30,23 @@ describe('ringcentral', () => {
 
     await rc.revoke()
   })
+
+  test('simple version', async () => {
+    await rc.authorize({
+      username: process.env.RINGCENTRAL_USERNAME,
+      extension: process.env.RINGCENTRAL_EXTENSION,
+      password: process.env.RINGCENTRAL_PASSWORD
+    })
+
+    let r = await rc.get('/restapi/v1.0/glip/groups')
+    // find the group with the most members
+    const group = reduce(maxBy(g => g.members.length), { members: [] }, r.data.records)
+    expect(group.members.length).toBeGreaterThan(1)
+
+    const persons = await rc.batchGet('/restapi/v1.0/glip/persons', group.members, 2)
+    expect(persons.length).toBe(group.members.length)
+    expect(persons.map(p => p.id)).toEqual(group.members)
+
+    await rc.revoke()
+  })
 })
