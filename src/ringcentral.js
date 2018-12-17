@@ -91,13 +91,17 @@ class RingCentral extends EventEmitter {
     if (this._token === undefined) {
       return
     }
-    const r = await this._axios._request({
-      method: 'post',
-      url: URI(this.server).path('/restapi/oauth/token').toString(),
-      data: querystring.stringify({ grant_type: 'refresh_token', refresh_token: this._token.refresh_token }),
-      headers: this._basicAuthorizationHeader()
-    })
+    if (!this.refreshRequest) {
+      this.refreshRequest = this._axios._request({
+        method: 'post',
+        url: URI(this.server).path('/restapi/oauth/token').toString(),
+        data: querystring.stringify({ grant_type: 'refresh_token', refresh_token: this._token.refresh_token }),
+        headers: this._basicAuthorizationHeader()
+      })
+    }
+    const r = await this.refreshRequest
     this.token(r.data)
+    this.refreshRequest = undefined
   }
 
   async revoke () {
