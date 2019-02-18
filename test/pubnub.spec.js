@@ -32,8 +32,9 @@ describe('pubnub', () => {
       text: 'Hello world'
     })
     await timeout(15000)
-    pubnub.revoke()
+    await pubnub.revoke()
     expect(count >= 1).toBe(true)
+    await rc.revoke()
   })
 
   test('Glip post notification', async () => {
@@ -48,11 +49,14 @@ describe('pubnub', () => {
     })
     await pubnub.subscribe()
     await timeout(5000)
-    await rc.post(`/restapi/v1.0/glip/groups/${process.env.RINGCENTRAL_GLIP_GROUP_ID}/posts`, {
+    const r = await rc.get('/restapi/v1.0/glip/groups')
+    const groupId = r.data.records[0].id
+    await rc.post(`/restapi/v1.0/glip/groups/${groupId}/posts`, {
       text: 'Hello world'
     })
-    await timeout(30000)
-    pubnub.revoke()
+    await timeout(20000)
+    await pubnub.revoke()
     expect(count >= 1).toBe(true)
+    await rc.revoke()
   })
 })
