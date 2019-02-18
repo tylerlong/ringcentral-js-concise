@@ -23,7 +23,7 @@ describe('authorze uri', () => {
       headers: rc._basicAuthorizationHeader()
     })
     expect(r.status).toBe(200)
-    expect(r.data).toContain('<!DOCTYPE HTML>')
+    expect(r.data).toContain('<!DOCTYPE HTML>') // returned content is an HTML page
 
     await rc.revoke()
   })
