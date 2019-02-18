@@ -23,7 +23,7 @@ describe('ringcentral', () => {
 
     const formData = new FormData()
     formData.append('json', JSON.stringify({ to: [{ phoneNumber: process.env.RINGCENTRAL_RECEIVER }] }), 'test.json')
-    formData.append('attachment', fs.createReadStream(path.join(__dirname, 'test.png')), 'test.png')
+    formData.append('whatever', fs.createReadStream(path.join(__dirname, 'test.png')), 'test.png')
     formData.pipe(concat({ encoding: 'buffer' }, async data => {
       const r = await rc.post('/restapi/v1.0/account/~/extension/~/fax', data, {
         headers: formData.getHeaders()
