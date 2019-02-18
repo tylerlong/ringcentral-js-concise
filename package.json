@@ -25,7 +25,7 @@
     "babel-core": "7.0.0-bridge.0",
     "babel-jest": "^23.6.0",
     "concat-stream": "^1.6.2",
-    "dotenv": "^6.2.0",
+    "dotenv-override-true": "^6.2.0",
     "form-data": "^2.3.3",
     "husky": "^1.2.1",
     "jest": "^23.6.0",
@@ -51,6 +51,9 @@
     ]
   },
   "jest": {
-    "testEnvironment": "node"
+    "testEnvironment": "node",
+    "setupFiles": [
+      "dotenv-override-true/config"
+    ]
   }
 }

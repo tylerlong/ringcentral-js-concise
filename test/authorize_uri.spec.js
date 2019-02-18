@@ -1,10 +1,7 @@
 /* eslint-env jest */
 import RingCentral from '../src/ringcentral'
-import dotenv from 'dotenv'
 import querystring from 'querystring'
 import URI from 'urijs'
-
-dotenv.config()
 
 jest.setTimeout(128000)
 

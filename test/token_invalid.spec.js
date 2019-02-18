@@ -1,9 +1,6 @@
 /* eslint-env jest */
 import delay from 'timeout-as-promise'
 import RingCentral from '../src/ringcentral'
-import dotenv from 'dotenv'
-
-dotenv.config()
 
 jest.setTimeout(64000)
 

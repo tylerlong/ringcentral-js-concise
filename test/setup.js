@@ -1,12 +1,9 @@
 /* eslint-env jest */
-import dotenv from 'dotenv'
-
 import RingCentral from '../src/ringcentral'
 
 let rc
 
 beforeAll(async done => {
-  dotenv.config()
   jest.setTimeout(64000)
   rc = new RingCentral(process.env.RINGCENTRAL_CLIENT_ID, process.env.RINGCENTRAL_CLIENT_SECRET, process.env.RINGCENTRAL_SERVER_URL)
   await rc.authorize({

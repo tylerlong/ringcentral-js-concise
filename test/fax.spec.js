@@ -1,13 +1,10 @@
 /* eslint-env jest */
 import RingCentral from '../src/ringcentral'
-import dotenv from 'dotenv'
 import FormData from 'form-data'
 import fs from 'fs'
 import path from 'path'
 import concat from 'concat-stream'
 import delay from 'timeout-as-promise'
-
-dotenv.config()
 
 jest.setTimeout(64000)
 

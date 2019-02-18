@@ -1,10 +1,7 @@
 /* eslint-env jest */
 import RingCentral from '../src/ringcentral'
-import dotenv from 'dotenv'
 import { maxBy, reduce } from 'ramda'
 import multipartMixedParser from 'multipart-mixed-parser'
-
-dotenv.config()
 
 jest.setTimeout(64000)
 

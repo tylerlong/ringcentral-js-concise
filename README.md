@@ -28,9 +28,6 @@ yarn add ringcentral-js-concise
 
 ```js
 import RingCentral from 'ringcentral-js-concise'
-import dotenv from 'dotenv'
-
-dotenv.config();
 
 (async () => {
   const rc = new RingCentral(process.env.RINGCENTRAL_CLIENT_ID, process.env.RINGCENTRAL_CLIENT_SECRET, process.env.RINGCENTRAL_SERVER_URL)

@@ -1,10 +1,7 @@
 /* eslint-env jest */
 import RingCentral from '../src/ringcentral'
 import PubNub from '../src/pubnub'
-import dotenv from 'dotenv'
 import delay from 'timeout-as-promise'
-
-dotenv.config()
 
 jest.setTimeout(128000)
 

@@ -1,8 +1,5 @@
 /* eslint-env jest */
-import dotenv from 'dotenv'
 import RingCentral from '../src/ringcentral'
-
-dotenv.config()
 
 jest.setTimeout(64000)
 
