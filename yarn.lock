@@ -4307,10 +4307,10 @@ ms@^2.0.0, ms@^2.1.1:
   version "2.1.1"
   resolved "https://registry.yarnpkg.com/ms/-/ms-2.1.1.tgz#30a5864eb3ebb0a66f2ebe6d727af06a09d86e0a"
 
-multipart-mixed-parser@^0.1.2:
-  version "0.1.2"
-  resolved "https://registry.yarnpkg.com/multipart-mixed-parser/-/multipart-mixed-parser-0.1.2.tgz#85c17019e9b4916e067bcb6bf428edecd6d3bb76"
-  integrity sha512-Bj5/XaSHM7BLXJ1l5noO1LfO4RiGVrkikm69dMCzAzRzVhx2wIGpi7rHig9/TT60BYyncv9pKAnLLC5gAgkFUQ==
+multipart-mixed-parser@^0.1.3:
+  version "0.1.3"
+  resolved "https://registry.yarnpkg.com/multipart-mixed-parser/-/multipart-mixed-parser-0.1.3.tgz#9bb6e31b994e4109510ce90e776375d43e3ff5bc"
+  integrity sha512-COcTMbbqpQnb36gLHir/SkYxq0sK6+A/0XSbDMVQIgwcY761oWzHg5GJV3BDrAPPRwLuK7W7Cb6v0OQcJGzajg==
 
 mute-stream@0.0.7:
   version "0.0.7"
