@@ -35,7 +35,7 @@ describe('ringcentral', () => {
       password: process.env.RINGCENTRAL_PASSWORD
     })
 
-    let r = await rc.get('/restapi/v1.0/glip/groups')
+    const r = await rc.get('/restapi/v1.0/glip/groups')
     // find the group with the most members
     const group = reduce(maxBy(g => g.members.length), { members: [] }, r.data.records)
     expect(group.members.length).toBeGreaterThan(1)

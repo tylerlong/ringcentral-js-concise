@@ -31,7 +31,7 @@ describe('ringcentral', () => {
       password: process.env.RINGCENTRAL_PASSWORD
     })
 
-    let r = await rc.get('/restapi/v1.0/account/~/extension')
+    const r = await rc.get('/restapi/v1.0/account/~/extension')
     const otherExtensionId = r.data.records.filter(r => r.extensionNumber === '102')[0].id
 
     const formData = new FormData()

@@ -13,7 +13,7 @@ describe('ringcentral', () => {
       password: process.env.RINGCENTRAL_PASSWORD
     })
 
-    let r = await rc.get('/restapi/v1.0/account/~/extension/~/call-log')
+    const r = await rc.get('/restapi/v1.0/account/~/extension/~/call-log')
     expect(r.status).toBe(200)
     // console.log(JSON.stringify(r.data.records.filter(cl => 'message' in cl)[0], null, 2))
 

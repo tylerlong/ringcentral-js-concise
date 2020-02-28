@@ -7,12 +7,14 @@ const rc = new RingCentral(process.env.RINGCENTRAL_CLIENT_ID, process.env.RINGCE
 
 describe('authorze uri', () => {
   test('authorize uri', async () => {
-    const r = await rc.get('/restapi/oauth/authorize', { params: {
-      response_type: 'code',
-      redirect_uri: 'https://ringcentral.github.io/ringcentral-js-widget/page/redirect.html',
-      state: 'myState',
-      client_id: process.env.RINGCENTRAL_CLIENT_ID
-    } })
+    const r = await rc.get('/restapi/oauth/authorize', {
+      params: {
+        response_type: 'code',
+        redirect_uri: 'https://ringcentral.github.io/ringcentral-js-widget/page/redirect.html',
+        state: 'myState',
+        client_id: process.env.RINGCENTRAL_CLIENT_ID
+      }
+    })
     expect(r.status).toBe(200)
     expect(r.data).toContain('<!DOCTYPE HTML>') // returned content is an HTML page
   })
