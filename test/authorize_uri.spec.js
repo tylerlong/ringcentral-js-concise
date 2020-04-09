@@ -18,4 +18,9 @@ describe('authorze uri', () => {
     expect(r.status).toBe(200)
     expect(r.data).toContain('<!DOCTYPE HTML>') // returned content is an HTML page
   })
+
+  test('generate authorize uri', async () => {
+    const authorizeUri = rc.authorizeUri('https://example.com', { state: '1111' })
+    expect(authorizeUri).toContain('state=1111')
+  })
 })
