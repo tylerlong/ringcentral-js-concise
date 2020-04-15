@@ -3,7 +3,6 @@ import RingCentral from '../src/ringcentral'
 import FormData from 'form-data'
 import fs from 'fs'
 import path from 'path'
-import concat from 'concat-stream'
 import delay from 'timeout-as-promise'
 
 jest.setTimeout(64000)
@@ -19,16 +18,15 @@ describe('ringcentral', () => {
     })
 
     const formData = new FormData()
-    formData.append('json', JSON.stringify({ to: [{ phoneNumber: process.env.RINGCENTRAL_RECEIVER }] }), 'test.json')
-    formData.append('whatever', fs.createReadStream(path.join(__dirname, 'test.png')), 'test.png')
-    formData.pipe(concat({ encoding: 'buffer' }, async data => {
-      const r = await rc.post('/restapi/v1.0/account/~/extension/~/fax', data, {
-        headers: formData.getHeaders()
-      })
-      expect(r.status).toBe(200)
-    }))
+    formData.append('files[]', JSON.stringify({ to: [{ phoneNumber: process.env.RINGCENTRAL_RECEIVER }] }), 'test.json')
+    formData.append('files[]', 'Hello world', 'test.txt')
+    formData.append('files[]', fs.createReadStream(path.join(__dirname, 'test.png')), 'test.png')
+    const r = await rc.post('/restapi/v1.0/account/~/extension/~/fax', formData, {
+      headers: formData.getHeaders()
+    })
+    expect(r.status).toBe(200)
 
-    await delay(10000)
+    await delay(1000)
     await rc.revoke()
   })
 })
