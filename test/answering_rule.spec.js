@@ -1,7 +1,5 @@
 /* eslint-env jest */
 import RingCentral from '../src/ringcentral'
-// import PubNub from '../src/pubnub'
-// import delay from 'timeout-as-promise'
 
 jest.setTimeout(128000)
 
@@ -15,18 +13,7 @@ describe('answering rule', () => {
       password: process.env.RINGCENTRAL_PASSWORD
     })
 
-    // let r =
     await rc.get('/restapi/v1.0/account/~/extension/~/answering-rule/business-hours-rule')
-    // console.log(r.data)
-
-    // try {
-    //   r = await rc.put('/restapi/v1.0/account/~/extension/~/answering-rule/business-hours-rule', {
-    //     queue: r.data.queue
-    //   })
-    //   console.log(r.data)
-    // } catch (e) {
-    //   console.log(e.response.data)
-    // }
 
     await rc.revoke()
   })

@@ -1,5 +1,6 @@
 /* eslint-env jest */
-import delay from 'timeout-as-promise'
+import waitFor from 'wait-for-async'
+
 import RingCentral from '../src/ringcentral'
 
 jest.setTimeout(64000)
@@ -16,7 +17,7 @@ describe('token invalid', () => {
       access_token_ttl: 600,
       refresh_token_ttl: 10
     })
-    await delay(10000)
+    await waitFor({ interval: 10000 })
     try {
       await rc.refresh()
     } catch (e) { // refresh token expired

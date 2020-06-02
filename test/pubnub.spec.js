@@ -1,5 +1,6 @@
 /* eslint-env jest */
-import delay from 'timeout-as-promise'
+import waitFor from 'wait-for-async'
+
 import RingCentral from '../src/ringcentral'
 import PubNub from '../src/pubnub'
 
@@ -19,13 +20,13 @@ describe('pubnub', () => {
       count += 1
     })
     await pubnub.subscribe()
-    await delay(5000)
+    await waitFor({ interval: 3000 })
     await rc.post('/restapi/v1.0/account/~/extension/~/sms', {
       to: [{ phoneNumber: process.env.RINGCENTRAL_RECEIVER }],
       from: { phoneNumber: process.env.RINGCENTRAL_USERNAME },
       text: 'Hello world'
     })
-    await delay(15000)
+    await waitFor({ interval: 3000, times: 10, condition: () => count >= 1 })
     await pubnub.revoke()
     expect(count >= 1).toBe(true)
     await rc.revoke()
@@ -42,13 +43,13 @@ describe('pubnub', () => {
       count += 1
     })
     await pubnub.subscribe()
-    await delay(5000)
+    await waitFor({ interval: 3000 })
     const r = await rc.get('/restapi/v1.0/glip/groups')
     const groupId = r.data.records[0].id
     await rc.post(`/restapi/v1.0/glip/groups/${groupId}/posts`, {
       text: 'Hello world'
     })
-    await delay(30000)
+    await waitFor({ interval: 3000, times: 10, condition: () => count >= 1 })
     await pubnub.revoke()
     expect(count >= 1).toBe(true)
     await rc.revoke()

@@ -1,4 +1,6 @@
 /* eslint-env jest */
+import waitFor from 'wait-for-async'
+
 import RingCentral from '../src/ringcentral'
 
 jest.setTimeout(64000)
@@ -93,6 +95,7 @@ describe('ringcentral', () => {
 
     // delete
     await rc.delete(messageUrl)
+    await waitFor({ interval: 3000 })
     r = await rc.get(messageUrl)
     expect(r.data.availability).toBe('Deleted')
   })

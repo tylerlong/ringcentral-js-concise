@@ -1,10 +1,10 @@
 /* eslint-env jest */
-import delay from 'timeout-as-promise'
+import waitFor from 'wait-for-async'
 
 describe('async await', () => {
   test('default', async () => {
     const f = async () => {
-      await delay(2000)
+      await waitFor({ interval: 2000 })
       return 1
     }
     await f()
@@ -12,7 +12,7 @@ describe('async await', () => {
   })
   test('async promise', async () => {
     const f = async () => {
-      await delay(2000)
+      await waitFor({ interval: 2000 })
       return 1
     }
     const p = f()

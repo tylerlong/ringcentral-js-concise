@@ -1,7 +1,7 @@
 /* eslint-env jest */
 import RingCentral from '../src/ringcentral'
 import PubNub from '../src/pubnub'
-import delay from 'timeout-as-promise'
+import waitFor from 'wait-for-async'
 
 jest.setTimeout(128000)
 
@@ -23,7 +23,7 @@ describe('ringcentral', () => {
     })
     await pubnub.subscribe()
 
-    await delay(3000)
+    await waitFor({ interval: 3000 })
 
     await rc.post('/restapi/v1.0/account/~/extension/~/ring-out', {
       from: { phoneNumber: process.env.RINGCENTRAL_USERNAME },
@@ -31,7 +31,7 @@ describe('ringcentral', () => {
       playPrompt: true
     })
 
-    await delay(20000)
+    await waitFor({ interval: 3000, times: 10, condition: () => count > 0 })
 
     expect(count).toBeGreaterThan(0)
 

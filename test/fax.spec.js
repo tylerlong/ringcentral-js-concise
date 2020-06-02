@@ -3,7 +3,7 @@ import RingCentral from '../src/ringcentral'
 import FormData from 'form-data'
 import fs from 'fs'
 import path from 'path'
-import delay from 'timeout-as-promise'
+import waitFor from 'wait-for-async'
 
 jest.setTimeout(64000)
 
@@ -26,7 +26,7 @@ describe('ringcentral', () => {
     })
     expect(r.status).toBe(200)
 
-    await delay(1000)
+    await waitFor({ interval: 1000 })
     await rc.revoke()
   })
 })
