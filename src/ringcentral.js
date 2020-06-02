@@ -82,7 +82,7 @@ class RingCentral extends EventEmitter {
     }
     const r = await this._axios.request({
       method: 'post',
-      url: URI(this.server).path('/restapi/oauth/token').toString(),
+      url: this.parseUrl(this.server, '/restapi/oauth/token').toString(),
       data,
       headers: this._basicAuthorizationHeader()
     })
@@ -96,7 +96,7 @@ class RingCentral extends EventEmitter {
     if (!this.refreshRequest) {
       this.refreshRequest = this._axios._request({
         method: 'post',
-        url: URI(this.server).path('/restapi/oauth/token').toString(),
+        url: this.parseUrl(this.server, '/restapi/oauth/token').toString(),
         data: querystring.stringify({ grant_type: 'refresh_token', refresh_token: this._token.refresh_token }),
         headers: this._basicAuthorizationHeader()
       })
@@ -112,7 +112,7 @@ class RingCentral extends EventEmitter {
     }
     await this._axios.request({
       method: 'post',
-      url: URI(this.server).path('/restapi/oauth/revoke').toString(),
+      url: this.parseUrl(this.server, '/restapi/oauth/revoke').toString(),
       data: querystring.stringify({ token: this._token.access_token }),
       headers: this._basicAuthorizationHeader()
     })
@@ -120,7 +120,7 @@ class RingCentral extends EventEmitter {
   }
 
   authorizeUri (redirectUri, options = { responseType: 'code', state: '', brandId: '', display: '', prompt: '' }) {
-    return URI(this.server).path('/restapi/oauth/authorize')
+    return this.parseUrl(this.server, '/restapi/oauth/authorize')
       .search({
         redirect_uri: redirectUri,
         client_id: this.clientId,
@@ -132,10 +132,16 @@ class RingCentral extends EventEmitter {
       }).toString()
   }
 
+  parseUrl (uri, path) {
+    const u = URI(uri)
+    const pathJoined = URI.joinPaths(u, path)
+    return u.path(pathJoined)
+  }
+
   request (config) {
     let uri = URI(config.url)
     if (uri.hostname() === '') {
-      uri = URI(this.server).path(config.url)
+      uri = this.parseUrl(this.server, config.url)
     }
     return this._axios.request({
       ...config,
