@@ -1,6 +1,6 @@
 import axios from 'axios'
 import { Base64 } from 'js-base64'
-import querystring from 'querystring'
+import qs from 'qs'
 import URI from 'urijs'
 import EventEmitter from 'events'
 import multipartMixedParser from 'multipart-mixed-parser'
@@ -75,9 +75,9 @@ class RingCentral extends EventEmitter {
   async authorize ({ username, extension, password, code, redirectUri }, options = {}) {
     let data
     if (code) {
-      data = querystring.stringify({ grant_type: 'authorization_code', code, redirect_uri: redirectUri, ...options })
+      data = qs.stringify({ grant_type: 'authorization_code', code, redirect_uri: redirectUri, ...options })
     } else {
-      data = querystring.stringify({ grant_type: 'password', username, extension, password, ...options })
+      data = qs.stringify({ grant_type: 'password', username, extension, password, ...options })
     }
     const r = await this._axios.request({
       method: 'post',
@@ -96,7 +96,7 @@ class RingCentral extends EventEmitter {
       this.refreshRequest = this._axios._request({
         method: 'post',
         url: this.parseUrl(this.server, '/restapi/oauth/token').toString(),
-        data: querystring.stringify({ grant_type: 'refresh_token', refresh_token: this._token.refresh_token }),
+        data: qs.stringify({ grant_type: 'refresh_token', refresh_token: this._token.refresh_token }),
         headers: this._basicAuthorizationHeader()
       })
     }
@@ -112,7 +112,7 @@ class RingCentral extends EventEmitter {
     await this._axios.request({
       method: 'post',
       url: this.parseUrl(this.server, '/restapi/oauth/revoke').toString(),
-      data: querystring.stringify({ token: this._token.access_token }),
+      data: qs.stringify({ token: this._token.access_token }),
       headers: this._basicAuthorizationHeader()
     })
     this.token(undefined)
