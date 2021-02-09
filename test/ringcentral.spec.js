@@ -95,7 +95,7 @@ describe('ringcentral', () => {
 
     // delete
     await rc.delete(messageUrl)
-    await waitFor({ interval: 10000 })
+    await waitFor({ interval: 60000 })
     r = await rc.get(messageUrl)
     expect(r.data.availability).toBe('Deleted')
   })
