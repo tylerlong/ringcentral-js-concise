@@ -1,3 +1,8 @@
+# Deprecated
+
+This is just a personal project. Users should use [RingCentral Extensible SDK](https://github.com/ringcentral/ringcentral-extensible) instead.
+
+
 # ringcentral-js-concise
 
 [![npm version](https://badge.fury.io/js/ringcentral-js-concise.svg)](https://badge.fury.io/js/ringcentral-js-concise)
