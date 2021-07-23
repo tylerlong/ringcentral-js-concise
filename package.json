@@ -9,6 +9,7 @@
   "module": "src/ringcentral.js",
   "scripts": {
     "test": "standard && jest -w 1 --detectOpenHandles",
+    "test2": "standard && jest -w 1 --detectOpenHandles $REGEX",
     "release": "webpack --progress",
     "prepublishOnly": "yarn release"
   },
@@ -30,7 +31,7 @@
     "form-data": "^3.0.0",
     "husky": "^5.0.9",
     "jest": "^26.6.3",
-    "pubnub": "^4.29.11",
+    "pubnub": "^4.32.1",
     "ramda": "^0.27.1",
     "standard": "^16.0.3",
     "wait-for-async": "^0.5.0",
@@ -39,7 +40,7 @@
     "yarn-upgrade-all": "^0.5.4"
   },
   "peerDependencies": {
-    "pubnub": "^4.29.11"
+    "pubnub": "^4.32.1"
   },
   "files": [
     "dist/*",

@@ -40,7 +40,10 @@ class PubNub {
   async subscribe () {
     const r = await this.rc.post('/restapi/v1.0/subscription', this._requestBody())
     this.subscription(r.data)
-    this.pubnub = new PubNubSDK({ subscribeKey: this.subscription().deliveryMode.subscriberKey })
+    this.pubnub = new PubNubSDK({
+      subscribeKey: this.subscription().deliveryMode.subscriberKey,
+      useRandomIVs: false
+    })
     this.pubnub.addListener(this.listener)
     this.pubnub.subscribe({ channels: [this.subscription().deliveryMode.address] })
   }
